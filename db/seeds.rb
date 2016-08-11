@@ -25,26 +25,47 @@ AcademicYear.create({"name"=>"2014/2015"})
 AcademicYear.create({"name"=>"2015/2016"})	
 =end
 
-=begin
-StudentNumber.create({"subject_id"=>186, "predicted_student_number" => 100, "student_number" => 100, "academic_year_id" => 23})
-StudentNumber.create({"subject_id"=>186, "predicted_student_number" => 100, "student_number" => 100, "academic_year_id" => 22})
-StudentNumber.create({"subject_id"=>186, "predicted_student_number" => 100, "student_number" => 100, "academic_year_id" => 21})
-StudentNumber.create({"subject_id"=>186, "predicted_student_number" => 100, "student_number" => 100, "academic_year_id" => 20})
-StudentNumber.create({"subject_id"=>186, "predicted_student_number" => 100, "student_number" => 100, "academic_year_id" => 19})
-StudentNumber.create({"subject_id"=>186, "predicted_student_number" => 100, "student_number" => 100, "academic_year_id" => 18})
-StudentNumber.create({"subject_id"=>186, "predicted_student_number" => 100, "student_number" => 100, "academic_year_id" => 17})
-StudentNumber.create({"subject_id"=>186, "predicted_student_number" => 100, "student_number" => 100, "academic_year_id" => 16})
-StudentNumber.create({"subject_id"=>186, "predicted_student_number" => 100, "student_number" => 100, "academic_year_id" => 15})
-StudentNumber.create({"subject_id"=>186, "predicted_student_number" => 100, "student_number" => 100, "academic_year_id" => 14})
+@subjects = Subject.all
+academic_year = AcademicYear.get_current_academic_year
 
-StudentNumber.create({"subject_id"=>187, "predicted_student_number" => 50, "student_number" => 100, "academic_year_id" => 23})
-StudentNumber.create({"subject_id"=>187, "predicted_student_number" => 50, "student_number" => 100, "academic_year_id" => 22})
-StudentNumber.create({"subject_id"=>187, "predicted_student_number" => 50, "student_number" => 100, "academic_year_id" => 21})
-StudentNumber.create({"subject_id"=>187, "predicted_student_number" => 50, "student_number" => 100, "academic_year_id" => 20})
-StudentNumber.create({"subject_id"=>187, "predicted_student_number" => 50, "student_number" => 100, "academic_year_id" => 19})
-StudentNumber.create({"subject_id"=>187, "predicted_student_number" => 50, "student_number" => 100, "academic_year_id" => 18})
-StudentNumber.create({"subject_id"=>187, "predicted_student_number" => 50, "student_number" => 100, "academic_year_id" => 17})
-StudentNumber.create({"subject_id"=>187, "predicted_student_number" => 50, "student_number" => 100, "academic_year_id" => 16})
-StudentNumber.create({"subject_id"=>187, "predicted_student_number" => 50, "student_number" => 100, "academic_year_id" => 15})
-StudentNumber.create({"subject_id"=>187, "predicted_student_number" => 50, "student_number" => 100, "academic_year_id" => 14})
+for i in 1...10
+	@subjects.each do |subject|
+		if subject.study_year == 1
+			StudentNumber.create({"subject_id"=>subject.id, "predicted_student_number" => 500, "student_number" => 500, "academic_year_id" => academic_year-i})
+		elsif subject.study_year == 2
+			StudentNumber.create({"subject_id"=>subject.id, "predicted_student_number" => 100, "student_number" => 100, "academic_year_id" => academic_year-i})
+		else
+			StudentNumber.create({"subject_id"=>subject.id, "predicted_student_number" => 80, "student_number" => 90, "academic_year_id" => academic_year-i})
+		end
+	end
+end
+
+=begin	
+	
+=begin
+s1 = Subject.first
+s2 = Subject.last
+
+
+StudentNumber.create({"subject_id"=>s1.id, "predicted_student_number" => 100, "student_number" => 100, "academic_year_id" => 23})
+StudentNumber.create({"subject_id"=>s1.id, "predicted_student_number" => 100, "student_number" => 100, "academic_year_id" => 22})
+StudentNumber.create({"subject_id"=>s1.id, "predicted_student_number" => 100, "student_number" => 100, "academic_year_id" => 21})
+StudentNumber.create({"subject_id"=>s1.id, "predicted_student_number" => 100, "student_number" => 100, "academic_year_id" => 20})
+StudentNumber.create({"subject_id"=>s1.id, "predicted_student_number" => 100, "student_number" => 100, "academic_year_id" => 19})
+StudentNumber.create({"subject_id"=>s1.id, "predicted_student_number" => 100, "student_number" => 100, "academic_year_id" => 18})
+StudentNumber.create({"subject_id"=>s1.id, "predicted_student_number" => 100, "student_number" => 100, "academic_year_id" => 17})
+StudentNumber.create({"subject_id"=>s1.id, "predicted_student_number" => 100, "student_number" => 100, "academic_year_id" => 16})
+StudentNumber.create({"subject_id"=>s1.id, "predicted_student_number" => 100, "student_number" => 100, "academic_year_id" => 15})
+StudentNumber.create({"subject_id"=>s1.id, "predicted_student_number" => 100, "student_number" => 100, "academic_year_id" => 14})
+
+StudentNumber.create({"subject_id"=>s2.id, "predicted_student_number" => 50, "student_number" => 50, "academic_year_id" => 23})
+StudentNumber.create({"subject_id"=>s2.id, "predicted_student_number" => 50, "student_number" => 50, "academic_year_id" => 22})
+StudentNumber.create({"subject_id"=>s2.id, "predicted_student_number" => 50, "student_number" => 50, "academic_year_id" => 21})
+StudentNumber.create({"subject_id"=>s2.id, "predicted_student_number" => 50, "student_number" => 50, "academic_year_id" => 20})
+StudentNumber.create({"subject_id"=>s2.id, "predicted_student_number" => 50, "student_number" => 50, "academic_year_id" => 19})
+StudentNumber.create({"subject_id"=>s2.id, "predicted_student_number" => 50, "student_number" => 50, "academic_year_id" => 18})
+StudentNumber.create({"subject_id"=>s2.id, "predicted_student_number" => 50, "student_number" => 50, "academic_year_id" => 17})
+StudentNumber.create({"subject_id"=>s2.id, "predicted_student_number" => 50, "student_number" => 50, "academic_year_id" => 16})
+StudentNumber.create({"subject_id"=>s2.id, "predicted_student_number" => 50, "student_number" => 50, "academic_year_id" => 15})
+StudentNumber.create({"subject_id"=>s2.id, "predicted_student_number" => 50, "student_number" => 50, "academic_year_id" => 14})
 =end

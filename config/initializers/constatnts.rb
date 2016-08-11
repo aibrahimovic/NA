@@ -12,6 +12,10 @@ class Constant
   	{:tutorials => 12, :preparations => 10, :consultations => 10}
   end
 
+  def self.group_sizes
+    {:more_exercises => 15, :less_exercises => 20}
+  end
+
   def self.study_program
   	['RI-I', 'RI-II', 'RI-III', 'EE-I', 'EE-II', 'EE-III', 'AiE-I', 'AiE-II', 'AiE-III', 'TK-I', 'TK-II', 'TK-III']
   end

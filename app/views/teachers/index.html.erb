@@ -1,14 +1,12 @@
 <br>
 <span id="notice" style="margin-left:0px;"><%= notice %></span>
-<div class="subject_buttons row">
-    <%= button_to 'Unesi novog nastavnika', new_teacher_path, class: 'btn btn-primary', :method => :get %>
-</div>
 
 <div class="row">
+<%= button_to 'Unesi novog nastavnika', new_teacher_path, class: 'btn btn-primary', :method => :get %>
 <br><br><br>
-<table class="subject_table table-striped">
+<table class="table">
   <thead>
-    <tr class="subject_table_header">
+    <tr>
       <th>Ime</th>
       <th>Prezime</th>
       <th>Titula</th>
@@ -37,4 +35,4 @@
 </table>
 
 <br>
-
+</div>

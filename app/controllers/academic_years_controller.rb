@@ -5,6 +5,7 @@ class AcademicYearsController < ApplicationController
   # GET /academic_years.json
   def index
     @academic_years = AcademicYear.all
+    @academic_years = @academic_years.sort_by {|obj| -obj.id}
   end
 
   # GET /academic_years/1
@@ -58,6 +59,16 @@ class AcademicYearsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to academic_years_url, notice: 'Academic year was successfully destroyed.' }
       format.json { head :no_content }
+    end
+  end
+
+  def startNewAcademicYear 
+    respond_to do |format|
+      if AcademicYear.start_new_academic_year == true
+        format.html { redirect_to academic_years_url, notice: 'Akademska godina je uspješno kreirana.' }
+      else
+        format.html { redirect_to academic_years_url, notice: 'Akademska godina ne može biti kreirana jer još uvijek nije počela.' }
+      end
     end
   end
 

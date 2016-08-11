@@ -1,15 +1,19 @@
-<p id="notice"><%= notice %></p>
+<br>
+<span id="notice" style="margin-left:0px;"><%= notice %></span>
+<div class="row">
+    <%= button_to 'Projiciraj broj studenata za '+ @academic_year.name + ' ak. godinu', predictStudentNumber_student_numbers_path, class: 'btn btn-primary', :method => :get %>
+    <%= button_to 'Ažuriranje broja upisanih studenata', updateStudentNumber_student_numbers_path, class: 'btn btn-default', :method => :get %>
+</div>
 
-<h1>Student Numbers</h1>
-<h1> <%= @subjects %> </h1>
-
-<table>
+<br><br>
+<table class="table">
   <thead>
     <tr>
-      <th>Subject</th>
-      <th>Predicted student number</th>
-      <th>Student number</th>
-      <th>Academic year</th>
+      <th>Predmet</th>
+      <th>Projicirani broj studenata</th>
+      <th>Broj upisanih studenata</th>
+      <th>Broj grupa</th>
+      <th>Akademska godina</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -17,13 +21,12 @@
   <tbody>
     <% @student_numbers.each do |student_number| %>
       <tr>
-        <td><%= student_number.subject_id %></td>
+        <td><%= student_number.subject.name %></td>
         <td><%= student_number.predicted_student_number %></td>
         <td><%= student_number.student_number %></td>
+        <td><%= student_number.group_number %></td>
         <td><%= student_number.academic_year.name %></td>
-        <td><%= link_to 'Show', student_number %></td>
-        <td><%= link_to 'Edit', edit_student_number_path(student_number) %></td>
-        <td><%= link_to 'Destroy', student_number, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Izmijeni', edit_student_number_path(student_number) %></td>
       </tr>
     <% end %>
   </tbody>
@@ -31,4 +34,15 @@
 
 <br>
 
-<%= link_to 'New Student Number', new_student_number_path %>
+<script type="text/javascript">
+$(document).ready(function(){
+    $.get('https://zamger.etf.unsa.ba/index.php?sta=izvjestaj/predmet&predmet=109&ag=9', function(page){
+     $(page).find('tr').each(function(){
+        console.debug(this);
+    });
+  })
+});
+
+
+
+</script>

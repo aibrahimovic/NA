@@ -31,19 +31,30 @@
     <header class="navbar navbar-fixed-top navbar-inverse">
       <div class="container">
       	<%= image_tag("etf-50x50.png", :alt => "etf_image") %>
+        <% id = AcademicYear.get_current_academic_year %>
+        <span style:"float: right; text-align:right;"> Aktualna akademska godina: <%= AcademicYear.find(id).name %>
       </div>
     </header>
     <br>
 
+
+
 	<div class="row">
 	  <div class="sidebar col-md-2">
+
+    
+
 	  	<nav>
 	  		<%= link_to "Nastavni ansambl", new_ensemble_path, :class => "sidebar_item" %><br>
 	        <%= link_to "Nastavnici",   teachers_path, :class => "sidebar_item" %><br>
 	        <%= link_to "Predmeti",   subjects_path, :class => "sidebar_item" %><br>
-	        <%= link_to "Statistički podaci", statistics_ensembles_path, :class => "sidebar_item"%><br>
 	        <%= link_to "Generisanje dokumenata", documents_ensembles_path, :class => "sidebar_item"%><br>
+          <%= link_to "Izračun projiciranog broja studenata", student_numbers_path, :class => "sidebar_item"%><br>
 	    </nav>
+      <br>
+      <br>
+
+    `<%= button_to 'Nova akademska godina', startNewAcademicYear_academic_years_path, class: 'btn btn-default', :method => :get %>
 	  </div>
 	  <div class="col-md-10">
 	  	<div class="row">

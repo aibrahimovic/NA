@@ -1,5 +1,5 @@
 <button id="ensemble_first_version">Spasi preliminarnu verziju</button>
-<table border="1">
+<table class="table">
 	<th>Predmet</th>
 	<th>Uloge</th>
 	<th>Grupe</th>
@@ -9,7 +9,7 @@
 
 	<% @subjects.each do |subject| %>
 	<% @rows = [] %>
-	<tr>
+	<tr id="<%= subject.id %>" data-saved="">
 		<td><%= subject.id %> <%= subject.name %></td>
 		<td>
 
@@ -90,12 +90,13 @@
 		
 
 		</div>
-		<br>
-		<button class="add_new_role" data-id="<%=subject.id%>" type="submit">Dodaj novu rolu</button>
+		<!-- <button class="add_new_role" data-id="<%=subject.id%>" type="submit">Dodaj novu rolu</button>-->
+		<div  class="add_new_role" data-id="<%=subject.id%>" type="submit">
+		   <%= image_tag "new_role3.png", height: '25', width: '25', :class => 'new_role_button' %>
+		</div>
 		
-
-		
-		<!-- <= collection_select(:teacher_id, 0, @teachers, :id, :last_name, :prompt => "") %> -->
+		<!-- <= collection_select(:teacher_id, 0, @teachers, :id, :last_name, :prompt => "") %> 
+		<button class="ensemble_save_row" data-id="<%=subject.id%>" type="submit">Spasi</button></td>-->
 		<br>
 		
 		
@@ -105,7 +106,12 @@
 		</td>
 	
 	<td></td>
-	<td><button class="ensemble_save_row" data-id="<%=subject.id%>" type="submit">Spasi</button></td>
+	<td>
+		<div  class="ensemble_save_row" data-id="<%=subject.id%>" type="submit">
+		   <%= image_tag "check1.png", height: '25', width: '25', :class => 'new_role_button' %>
+		</div>
+	</td>
+		
 
 	</tr>
 	<%end%>
@@ -123,7 +129,15 @@
 
 $(document).ready(function(){
 	list = [];
-	var all_teachers;
+	var all_teachers;        	
+
+	$('td').each(function() {
+		if ($(this).data('saved') == 'saved')
+			$(id).css("background-color","#F0F8FF");
+
+	})
+
+
 
 	/*$.ajax({
 	    url: '/ensembles/getCurrentEnsemble',
@@ -296,7 +310,7 @@ $('.ensemble_save_row').click(function() {
 	}
 
 	var filtered_list = find_subject_data(list, subject_id);
-
+	var id = '#'+subject_id
 	//slanje podataka na servis
 	$.ajax({
 	    url: '/ensembles/create_record',
@@ -306,6 +320,9 @@ $('.ensemble_save_row').click(function() {
         type: 'POST',
         success: function(result) {
         if (result.status) {
+        	$(id).css("background-color","#F0F8FF");
+			$(id).data('saved','saved'); 
+        	
 	    }
 	   }     
 	});

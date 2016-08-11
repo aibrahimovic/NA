@@ -1,14 +1,20 @@
 Rails.application.routes.draw do
+
   resources :all_subject_roles
   resources :subject_roles do 
     get 'getSubjectRoles', on: :collection
   end
-  resources :academic_years
+  resources :academic_years do
+    get "startNewAcademicYear", on: :collection
+  end
   resources :privileges
   resources :user_roles
   resources :roles
   resources :users
-  resources :student_numbers
+  resources :student_numbers do 
+    get "predictStudentNumber", on: :collection
+    get "updateStudentNumber", on: :collection
+  end
   resources :groups
   
   resources :ensembles do

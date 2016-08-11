@@ -7,6 +7,10 @@ class StudentNumbersController < ApplicationController
 
   def index
     @student_numbers = StudentNumber.all
+    @student_numbers = @student_numbers.sort_by {|obj| -obj.academic_year_id}
+    
+    academic_year_id = AcademicYear.get_current_academic_year
+    @academic_year = AcademicYear.find(academic_year_id)
     #StudentNumber.predict_student_number
   end
 
@@ -62,6 +66,36 @@ class StudentNumbersController < ApplicationController
     respond_to do |format|
       format.html { redirect_to student_numbers_url, notice: 'Student number was successfully destroyed.' }
       format.json { head :no_content }
+    end
+  end
+
+  def predictStudentNumber
+    status = StudentNumber.predict_student_number
+    if status == false
+      respond_to do |format|
+        format.html { redirect_to student_numbers_url, notice: 'Za trenutnu akademsku godinu već je projiciran broj studenata.'}
+        format.json { head :no_content }
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to student_numbers_url, notice: 'Broj studenata je uspješno projiciran'}
+        format.json { head :no_content }
+      end
+    end
+  end
+
+  def updateStudentNumber
+    status = StudentNumber.update_student_number
+    if status == false
+      respond_to do |format|
+        format.html { redirect_to student_numbers_url, notice: 'Svi predmeti imaju spašen stvarni broj studenata.'}
+        format.json { head :no_content }
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to student_numbers_url, notice: 'Broj studenata je uspješno ažuriran'}
+        format.json { head :no_content }
+      end
     end
   end
 
