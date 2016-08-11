@@ -1,0 +1,46 @@
+<p id="notice"><%= notice %></p>
+
+
+
+<p>
+  <strong>Code:</strong>
+  <%= @subject.code %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @subject.name %>
+</p>
+
+<p>
+  <strong>Number of lectures:</strong>
+  <%= @subject.number_of_lectures %>
+</p>
+
+<p>
+  <strong>Number of exercises:</strong>
+  <%= @subject.number_of_exercises %>
+</p>
+
+<p>
+  <strong>Number of tutorials:</strong>
+  <%= @subject.number_of_tutorials %>
+</p>
+
+<p>
+  <strong>Number of special activities:</strong>
+  <%= @subject.number_of_special_activities %>
+</p>
+
+<p>
+  <strong>Study program:</strong>
+  <%= @subject.study_program %>
+</p>
+
+<p>
+  <strong>Study cicle:</strong>
+  <%= @subject.study_cicle %>
+</p>
+
+<%= link_to 'Edit', edit_subject_path(@subject) %> |
+<%= link_to 'Back', subjects_path %>

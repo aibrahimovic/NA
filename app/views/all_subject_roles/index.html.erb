@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>All Subject Roles</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Subject</th>
+      <th>Subject role</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @all_subject_roles.each do |all_subject_role| %>
+      <tr>
+        <td><%= all_subject_role.subject_id %></td>
+        <td><%= all_subject_role.subject_role_id %></td>
+        <td><%= link_to 'Show', all_subject_role %></td>
+        <td><%= link_to 'Edit', edit_all_subject_role_path(all_subject_role) %></td>
+        <td><%= link_to 'Destroy', all_subject_role, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New All Subject Role', new_all_subject_role_path %>

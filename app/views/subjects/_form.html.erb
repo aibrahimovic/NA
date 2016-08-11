@@ -1,0 +1,110 @@
+<%= form_for(subject) do |f| %>
+  <% if subject.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(subject.errors.count, "error") %> prohibited this subject from being saved:</h2>
+
+      <ul>
+      <% subject.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class = "row">
+  <div class="col-md-6">
+
+    <div class="form-group row">
+      <%= f.label :Šifra, :class => "col-xs-3 col-form-label"%>
+      <div class="col-xs-9">
+        <%= f.text_field :code, :class => "form-control"%>
+      </div>
+      
+    </div>
+
+    <div class="form-group row">
+      <%= f.label :naziv_predmeta, :class => "col-xs-3 col-form-label" %>
+      <div class="col-xs-9">
+        <%= f.text_field :name, :class => "form-control"%>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <%= f.label :broj_sati_predavanja, :class => "col-xs-3 col-form-label"  %>
+      <div class="col-xs-9">
+        <%= f.number_field :number_of_lectures, :class => "form-control"%>
+      </div>
+    </div>
+
+    <div class="field row">
+      <%= f.label :broj_sati_vježbi, :class => "col-xs-3 col-form-label"   %>
+      <div class="col-xs-9">
+        <%= f.number_field :number_of_exercises, :class => "form-control"  %>
+      </div>
+    </div>
+
+    <div class="field row">
+      <%= f.label :broj_sati_tutorijala, :class => "col-xs-3 col-form-label" %>
+      <div class="col-xs-9">
+        <%= f.number_field :number_of_tutorials, :class => "form-control" %>
+      </div>
+    </div>
+
+    <div class="field row">
+      <%= f.label :broj_sati_posebnih_aktivnosti, :class => "col-xs-3 col-form-label" %>
+      <div class="col-xs-9">
+        <%= f.number_field :number_of_special_activities, :class => "form-control" %>
+      </div>
+    </div>
+
+    <div class="field row">
+    <%= f.label :odsjek, :class => "col-xs-3 col-form-label" %>
+    <div class="col-xs-9">
+      <%= f.select :department_id, 
+      options_for_select([['RI','1'],['AiE','2'],['EE','3'],['TK','4']], params[:department_id]),
+      {}, { :class => 'span3 controls controls-row form-control' } %>
+    </div>
+    </div>
+
+    <div class="field row">
+      <%= f.label :ciklus_studija, :class => "col-xs-3 col-form-label" %>
+      <div class="col-xs-9">
+        <%= f.select :study_cicle, 
+      options_for_select([['I','1'],['II','2'],['III','3']], params[:study_cicle]),
+      {}, { :class => 'span3 controls controls-row form-control' } %>
+    </div>
+    </div>
+    
+    <div class="field row">
+    <%= f.label :godina, :class => "col-xs-3 col-form-label" %>
+    <div class="col-xs-9">
+      <%= f.select :study_year, 
+      options_for_select([['1','1'],['2','2'],['3','3'],['4','4']], :selected =>  params[:study_year]),
+      {}, { :class => 'span3 controls controls-row form-control' } %>
+    </div>
+    </div>
+
+
+    <div class="field row">
+    <%= f.label :semestar, :class => "col-xs-3 col-form-label" %>
+    <div class="col-xs-9">
+      <%= f.select :semestar, 
+      options_for_select([['1','1'],['2','2'],['3','3'],['4','4'],['5','5'],['6','6'],['7','7'],['8','8']], :selected => params[:semestar]),
+      {}, { :class => 'span3 controls controls-row form-control' } %>
+    </div>
+    </div>
+
+
+    <div class="actions row">
+    <div class="col-xs-3 col-form-label"></div>
+    <div class="col-xs-9">
+      <%= f.submit 'Spasi izmjene', :class => 'btn btn-primary' %> 
+    </div>
+    </div>
+  </div>
+
+  <div class="col-md-6">
+  </div>
+  </div>
+
+<% end %>

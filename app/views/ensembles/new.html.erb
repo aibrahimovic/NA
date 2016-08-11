@@ -1,0 +1,366 @@
+<button id="ensemble_first_version">Spasi preliminarnu verziju</button>
+<table border="1">
+	<th>Predmet</th>
+	<th>Uloge</th>
+	<th>Grupe</th>
+	<th>Spasi</th>
+	<br>
+	
+
+	<% @subjects.each do |subject| %>
+	<% @rows = [] %>
+	<tr>
+		<td><%= subject.id %> <%= subject.name %></td>
+		<td>
+
+		<div class="cell" id="cell_<%=subject.id%>" data-subject="<%=subject.id%>">
+
+		<% @rows = @ensembles.where(subject_id: subject.id) %>
+
+		<% if @rows != [] %>
+			
+			<% @rows.each do |row|%>
+
+				<select class="select_subject_roles" data-subject="<%=subject.id%>">
+					<option disabled selected value></option>
+			    	
+			    	<% @subject_roles.each do |subject_role| %>
+			    		<% if row.subject_role_id == subject_role.id %>
+				        	<option class="roles" value="<%= row.subject_role_id %>" data-id="<%= subject_role.id %>" selected><%= subject_role.name %>
+				        	</option>
+				        <%else%>
+					        <option class="roles" value="<%= row.subject_role_id %>" data-id="<%= subject_role.id %>"><%= subject_role.name %>
+					        </option>
+				        <%end%>
+			    	<% end %>
+
+				</select>
+
+				<select class="select_teachers" data-subject="<%=subject.id%>" value="<%= row.teacher_id %>">
+					<option disabled selected value></option>
+
+			    	<% @teachers.each do |teacher| %>
+			    		<% if row.teacher_id == teacher.id %>
+					        <option class="teachers" value="<%= row.teacher_id %>" data-id="<%= teacher.id %>" selected><%= teacher.first_name + " " + teacher.last_name %>
+					        </option>
+					    <%else%>
+					    	<option class="teachers" value="<%= row.teacher_id %>" data-id="<%= teacher.id %>"><%= teacher.first_name + " " + teacher.last_name %>
+				        	</option>
+				        <%end%>
+			    	<% end %>
+				</select>
+				<br>
+
+			<%end%>
+
+		<%else%>
+			
+			<% @default_subject_roles.each do |row|%>
+
+				<select class="select_subject_roles" data-subject="<%=subject.id%>">
+					<option disabled selected value></option>
+			    	
+			    	<% @subject_roles.each do |subject_role| %>
+			    		<% if row.id == subject_role.id %>
+				        	<option class="roles" value="<%= row.id %>" data-id="<%= subject_role.id %>" selected><%= subject_role.name %>
+				        	</option>
+				        <%else%>
+					        <option class="roles" value="<%= row.id %>" data-id="<%= subject_role.id %>"><%= subject_role.name %>
+					        </option>
+				        <%end%>
+			    	<% end %>
+
+				</select>
+
+				<select class="select_teachers" data-subject="<%=subject.id%>">
+					<option disabled selected value></option>
+
+			    	<% @teachers.each do |teacher| %>
+					    <option class="teachers" data-id="<%= teacher.id %>" ><%= teacher.first_name + " " + teacher.last_name %>
+					    </option>
+			    	<% end %>
+				</select>
+				<br>
+
+			<%end%>
+
+
+
+		<%end%>
+		
+
+		</div>
+		<br>
+		<button class="add_new_role" data-id="<%=subject.id%>" type="submit">Dodaj novu rolu</button>
+		
+
+		
+		<!-- <= collection_select(:teacher_id, 0, @teachers, :id, :last_name, :prompt => "") %> -->
+		<br>
+		
+		
+
+		
+
+		</td>
+	
+	<td></td>
+	<td><button class="ensemble_save_row" data-id="<%=subject.id%>" type="submit">Spasi</button></td>
+
+	</tr>
+	<%end%>
+</table>
+
+
+
+
+<%= link_to 'Back', ensembles_path %>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+<script type="text/javascript">
+
+$(document).ready(function(){
+	list = [];
+	var all_teachers;
+
+	/*$.ajax({
+	    url: '/ensembles/getCurrentEnsemble',
+	    type: 'GET',
+        dataType:'json',
+        success: function(json) {
+        	var ensemble = json
+        	console.log(ensemble);
+
+        	ids = []
+        	for (i=0; i<ensemble.length; i++) {
+        		if(jQuery.inArray(ensemble[i], ids) === -1)
+        			ids.push(ensemble[i].subject_id);
+        	}
+
+        	console.log(ids);
+
+        	for (i=0; i<ensemble.length; i++) {
+        	
+        		var subject_id = ids[j];
+        		var cell_class = '#cell_' + subject_id;
+        		teacher = $(cell_class).children(".select_teachers");
+				subject_role = $(cell_class).children(".select_subject_roles");
+
+        		for (j=0; j<ids.length; j++) { //npr. 186
+
+        			if (ensemble[i].subject_id == subject_id) {
+
+
+			
+						console.log(teacher);
+
+        				$(teacher).each(function(k) {
+							$(k).val(ensemble[i]['teacher_id']);
+        				});
+
+        			}
+
+
+        		}
+        	
+        	}
+
+        	for (i=0; i<ensemble.length; i++) {
+        		//console.log("ensemble[i]");
+        		//console.log(ensemble[i]);
+        		var subject_id = ensemble[i]['subject_id'];
+				//console.log(subject_id);
+				var cell_class = '#cell_' + subject_id;
+
+				teacher = $(cell_class).children(".select_teachers").first();
+				subject_role = $(cell_class).children(".select_subject_roles").first();
+				
+
+				console.log(subject_role);
+				console.log(teacher);
+
+
+				console.log(ensemble[i]);
+				console.log(subject_role);
+
+				$(subject_role).val(ensemble[i]['subject_role_id']);
+				$(teacher).val(ensemble[i]['teacher_id']);
+				
+        	}
+		}
+	});*/
+});
+
+
+	
+
+
+$('#ensemble_first_version').click(function() {
+	alert("test");
+});
+
+$('.add_new_role').click(function() {
+
+	var subject_id = $(this).data('id');
+	console.log(subject_id);
+	var cell_class = '#cell_' + subject_id;
+
+	$(cell_class).append("<select class='select_subject_roles'></select>");
+	var object = $(cell_class).children().last();
+	console.log(object);
+
+	$(object).append("<option disabled selected value></option>");
+
+	$.ajax({
+	    url: '/subject_roles/getSubjectRoles',
+	    type: 'GET',
+        dataType:'json',
+        async: false,
+        success: function(json) {
+        	subject_roles = json
+        	console.log(subject_roles);
+        	console.log(object);
+
+			for (i=0; i<subject_roles.length; i++) {
+				$(object).append(
+			        $('<option data-id='+subject_roles[i]["id"]+'></option>').val(subject_roles[i]['id']).html(subject_roles[i]['name'])
+			    );
+			}
+		}
+	});
+
+	$(cell_class).append("</select> ");
+
+	
+	$(cell_class).append("<select class='select_teachers'>");
+	var object = $(cell_class).children().last();
+	$(object).append("<option disabled selected value></option>");
+
+	$.ajax({
+	    url: '/teachers/getTeachers',
+	    type: 'GET',
+        dataType:'json',
+        success: function(json) {
+        	teachers = json
+			for (i=0; i<teachers.length; i++) {
+				$(object).append(
+			        $('<option data-id='+teachers[i]["id"]+'></option>').val(teachers[i]['id']).html(teachers[i]['first_name'] + " " + teachers[i]['last_name'])
+			    );
+			}
+		}
+	});
+	$(cell_class).append("</select>");
+	$(cell_class).append("<br>");
+
+	
+});
+
+function find_subject_data(list, subject_id) {
+	filtered_list = []
+	for (i=0; i<list.length; i++) {
+		if (list[i].subject_id==subject_id) {
+			filtered_list.push(list[i]);
+		}
+	}
+	console.log(filtered_list);
+	return filtered_list;
+}
+
+$('.ensemble_save_row').click(function() {
+	var subject_id = $(this).data('id');
+	console.log(subject_id);
+	var cell_class = '#cell_' + subject_id;
+
+	var items = [];
+	$(cell_class).children(".select_teachers, .select_subject_roles").each(function () {    
+		var row_item = $(this).children(":selected").data('id');
+	    items.push(row_item);
+	});
+
+	console.log(items);
+
+	for (i=0; i<items.length; i=i+2) {
+		var subject_role_id = items[i];
+		var teacher_id = items[i+1];
+
+		if (subject_role_id != undefined && teacher_id != undefined) {
+			list.push({subject_id: subject_id, subject_role_id: subject_role_id, teacher_id: teacher_id});
+			console.log(list);
+		}
+		else if (subject_role_id == undefined)
+			alert("Potrebno je selektovati ulogu nastavnika.");
+		else if (teacher_id != undefined) 
+			alert("Potrebno je selektovati nastavnika.");
+	}
+
+	var filtered_list = find_subject_data(list, subject_id);
+
+	//slanje podataka na servis
+	$.ajax({
+	    url: '/ensembles/create_record',
+	        data: { 
+	       	list: filtered_list
+        },
+        type: 'POST',
+        success: function(result) {
+        if (result.status) {
+	    }
+	   }     
+	});
+
+
+
+	/*var subject_role_id = $(this).data('id');
+	    var teacher_id = 
+		var selected_subject_role_id = $(this).children(":selected").data('id');
+		var subject_id = $(this).data('subject');
+		
+		//console.log("Subject role id: " + subject_role_id);
+		//console.log("Teacher id: " + teacher_id);
+		
+		list.push({subject_id: subject_id, subject_role_id: subject_role_id, teacher_id: teacher_id});
+		console.log(list);*/
+
+	/*for (i=0; i<cell_1.length; i++) {
+
+		var test;
+		test = $(cell_class).children(".select_teachers").children(":selected").data('id');
+		//test = test.children;
+		console.log(test);
+	}*/
+
+	
+
+	//filtered_list = find_subject_data(list, subject_id);
+	
+	//console.log(list[i].subject_id + " " + list[i].subject_role_id + " " + list[i].teacher_id);
+			
+
+
+});
+
+/*$( document ).ready(function() {
+    $.ajax({
+            url: '/ensembles/test',
+            data: { 
+              name: "azra",
+            },
+            type: 'POST',
+            success: function(result) {
+              if (result.error) {
+              }
+            }
+        });
+});*/
+
+  
+
+
+
+</script>
+
+
+
+

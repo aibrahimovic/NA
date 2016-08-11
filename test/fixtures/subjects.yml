@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  code: MyString
+  name: MyString
+  number_of_lectures: 1
+  number_of_exercises: 1
+  number_of_tutorials: 1
+  number_of_special_activities: 1
+  study_program: MyString
+  study_cicle: 1
+
+two:
+  code: MyString
+  name: MyString
+  number_of_lectures: 1
+  number_of_exercises: 1
+  number_of_tutorials: 1
+  number_of_special_activities: 1
+  study_program: MyString
+  study_cicle: 1

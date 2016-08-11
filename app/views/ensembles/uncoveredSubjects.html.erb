@@ -1,0 +1,34 @@
+
+<head>
+  <meta name="pdfkit-orientation" content="Landscape"/>
+</head>
+
+<span style="font-size:14px;"> Izvještaj o nepokrivenim predmetima </span>
+<br><br><br><br>
+
+<table class="table">
+	<tr>
+      <th>Naziv predmeta</th>
+      <th>Broj sati predavanja</th>
+      <th>Broj sati vježbi</th>
+      <th>Broj sati tutorijala</th>
+      <th>Broj sati posebnih aktivnosti</th>
+      <th>Studijski program</th>
+      <th>Godina</th>
+      <th>Semestar</th>
+	</tr>
+	<% @uncoveredSubjects.each do |subject| %>
+		<tr>
+			<td> <%= subject.name %> </td>
+			<td> <%= subject.number_of_lectures %> </td>
+			<td> <%= subject.number_of_exercises %> </td>
+			<td> <%= subject.number_of_tutorials %> </td>
+			<td> <%= subject.number_of_special_activities %> </td>
+			<td> <%= subject.study_program %> </td>
+			<td> <%= subject.study_year %> </td>
+			<td> <%= subject.semestar %> </td>
+		</tr>
+	<%end%>
+</table>
+
+<br><br>

@@ -1,0 +1,1 @@
+json.array! @subject_roles, partial: 'subject_roles/subject_role', as: :subject_role

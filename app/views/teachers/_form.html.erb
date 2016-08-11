@@ -1,0 +1,66 @@
+<%= form_for(teacher) do |f| %>
+  <% if teacher.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(teacher.errors.count, "error") %> prohibited this teacher from being saved:</h2>
+
+      <ul>
+      <% teacher.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+  <div class = "row">
+  <div class="col-md-6">
+
+    <div class="form-group row">
+      <%= f.label :ime, :class => "col-xs-3 col-form-label"%>
+      <div class="col-xs-9">
+        <%= f.text_field :first_name, :class => "form-control"%>
+      </div>
+      
+    </div>
+
+    <div class="form-group row">
+      <%= f.label :prezime, :class => "col-xs-3 col-form-label" %>
+      <div class="col-xs-9">
+        <%= f.text_field :last_name, :class => "form-control"%>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <%= f.label :titula, :class => "col-xs-3 col-form-label" %>
+      <div class="col-xs-9">
+        <%= f.text_field :title, :class => "form-control"%>
+      </div>
+    </div>
+
+    <div class="field row">
+      <%= f.label :election_date, :class => "col-xs-3 col-form-label" %>
+      <div class="col-xs-9">
+        <%= f.date_select :election_date, :class => "form-control" %>
+      </div>
+    </div>
+
+    <div class="field row">
+      <%= f.label :izbroni_period, :class => "col-xs-3 col-form-label" %>
+      <div class="col-xs-9">
+        <%= f.number_field :election_period, :class => "form-control" %>
+      </div>
+    </div>
+
+    <div class="actions row">
+    <div class="col-xs-3 col-form-label"></div>
+    <div class="col-xs-9">
+      <%= f.submit 'Spasi izmjene', :class => 'btn btn-primary' %> 
+    </div>
+    </div>
+  </div>
+
+  <div class="col-md-6">
+  </div>
+  </div>
+
+<% end %>

@@ -1,0 +1,40 @@
+<br>
+<span id="notice" style="margin-left:0px;"><%= notice %></span>
+<div class="subject_buttons row">
+    <%= button_to 'Unesi novog nastavnika', new_teacher_path, class: 'btn btn-primary', :method => :get %>
+</div>
+
+<div class="row">
+<br><br><br>
+<table class="subject_table table-striped">
+  <thead>
+    <tr class="subject_table_header">
+      <th>Ime</th>
+      <th>Prezime</th>
+      <th>Titula</th>
+      <th>Pozicija</th>
+      <th>Datum izbora</th>
+      <th>Izborni period</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @teachers.each do |teacher| %>
+      <tr>
+        <td><%= teacher.first_name %></td>
+        <td><%= teacher.last_name %></td>
+        <td><%= teacher.title %></td>
+        <td><%= teacher.position %></td>
+        <td><%= teacher.election_date %></td>
+        <td><%= teacher.election_period %></td>
+        <td><%= link_to 'Show', teacher %></td>
+        <td><%= link_to 'Edit', edit_teacher_path(teacher) %></td>
+        <td><%= link_to 'Destroy', teacher, method: :delete, data: { confirm: 'Da li ste sigurni?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+

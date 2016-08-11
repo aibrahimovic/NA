@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  subject_id: 1
+  predicted_student_number: 1
+  student_number: 1
+  academic_year: MyString
+
+two:
+  subject_id: 1
+  predicted_student_number: 1
+  student_number: 1
+  academic_year: MyString

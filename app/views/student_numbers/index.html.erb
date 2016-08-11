@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Student Numbers</h1>
+<h1> <%= @subjects %> </h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Subject</th>
+      <th>Predicted student number</th>
+      <th>Student number</th>
+      <th>Academic year</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @student_numbers.each do |student_number| %>
+      <tr>
+        <td><%= student_number.subject_id %></td>
+        <td><%= student_number.predicted_student_number %></td>
+        <td><%= student_number.student_number %></td>
+        <td><%= student_number.academic_year.name %></td>
+        <td><%= link_to 'Show', student_number %></td>
+        <td><%= link_to 'Edit', edit_student_number_path(student_number) %></td>
+        <td><%= link_to 'Destroy', student_number, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Student Number', new_student_number_path %>

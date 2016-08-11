@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Subject:</strong>
+  <%= @ensemble.subject_id %>
+</p>
+
+<p>
+  <strong>Teacher:</strong>
+  <%= @ensemble.teacher_id %>
+</p>
+
+<p>
+  <strong>Academic year:</strong>
+  <%= @ensemble.academic_year %>
+</p>
+
+<%= link_to 'Edit', edit_ensemble_path(@ensemble) %> |
+<%= link_to 'Back', ensembles_path %>

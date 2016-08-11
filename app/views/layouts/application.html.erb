@@ -1,0 +1,74 @@
+<!-- <!DOCTYPE html>
+<html>
+  <head>
+    <title>Master</title>
+    <= csrf_meta_tags %>
+
+    <= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+  	<h1>Test</h1>
+    <= yield %>
+  </body>
+</html> -->
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Master</title>
+    <%= csrf_meta_tags %>
+    <%= stylesheet_link_tag    'application', media: 'all',
+                                              'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <!--[if lt IE 9]>
+      <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/r29/html5.min.js">
+      </script>
+    <![endif]-->
+  </head>
+  <body>
+    <header class="navbar navbar-fixed-top navbar-inverse">
+      <div class="container">
+      	<%= image_tag("etf-50x50.png", :alt => "etf_image") %>
+      </div>
+    </header>
+    <br>
+
+	<div class="row">
+	  <div class="sidebar col-md-2">
+	  	<nav>
+	  		<%= link_to "Nastavni ansambl", new_ensemble_path, :class => "sidebar_item" %><br>
+	        <%= link_to "Nastavnici",   teachers_path, :class => "sidebar_item" %><br>
+	        <%= link_to "Predmeti",   subjects_path, :class => "sidebar_item" %><br>
+	        <%= link_to "Statistički podaci", statistics_ensembles_path, :class => "sidebar_item"%><br>
+	        <%= link_to "Generisanje dokumenata", documents_ensembles_path, :class => "sidebar_item"%><br>
+	    </nav>
+	  </div>
+	  <div class="col-md-10">
+	  	<div class="row">
+	  		<div class="col-md-10">
+
+	  		</div>
+	  		<div class="user_info col-md-2">
+	  			<%= image_tag("user.png", :alt => "user_image") %>
+	  			Users name <br>
+	  			<%= link_to "Odjava", '#', :style => "float: right; text-align: right;"%>
+	  		</div>
+	  	</div>
+	  	<div class="row">
+	  		<div class="col-md-12">
+	  			<%= yield %>
+	  		</div>
+	  	</div>
+	  </div>
+	</div>
+
+	
+
+
+
+
+   
+  </body>
+</html>

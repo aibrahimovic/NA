@@ -1,0 +1,3 @@
+class AllSubjectRole < ApplicationRecord
+end
+

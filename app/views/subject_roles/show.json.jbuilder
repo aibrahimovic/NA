@@ -1,0 +1,1 @@
+json.partial! "subject_roles/subject_role", subject_role: @subject_role

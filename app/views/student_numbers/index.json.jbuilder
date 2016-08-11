@@ -1,0 +1,1 @@
+json.array! @student_numbers, partial: 'student_numbers/student_number', as: :student_number

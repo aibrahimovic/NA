@@ -1,0 +1,76 @@
+<%= button_to 'Nastavni ansambl za akademsku godinu', downloadEnsemble_ensembles_path + '.pdf', :class => 'documents btn btn-primary', :method => :get%><br><br>
+
+
+
+
+<div class="teacher_checkboxes">
+
+<input type="checkbox" name="all_teachers_selected" class="all_teachers_selected" id="selectall" checked>Selektuj sve nastavnike
+<br><br>
+<div class="teacher_checkboxes_child">
+	<% @teacher.each do |teacher| %>
+		<input type="checkbox" name="<%=teacher.id %>" class="case" checked><%= teacher.first_name%> <%= teacher.last_name%><br>
+	<%end%>
+</div>
+
+<br>
+<%= button_to 'Rješenje o radnim zadacima', teacherTasks_ensembles_path(:id =>'2'), :class => 'documents btn btn-primary', :method => :get%>
+
+</div>
+
+<br><br>
+
+<%= button_to 'Izvještaj o nepokrivenim predmetima', uncoveredSubjects_ensembles_path, :class => 'documents btn btn-primary', :method => :get%><br><br>
+
+<%= button_to 'Izvještaj o normama nastavnika', '#', :class => 'documents btn btn-primary', :method => :get%>
+
+<br>
+
+
+<script type="text/javascript">
+	
+/*	$('all_teachers_selected').change(function () {
+		alert("Test");
+	});
+
+
+
+$( ".all_teachers_selected" ).change(function() {
+  //var input = ($this);
+
+  if ($(".all_teachers_selected" ).is( ":checked" ) == true) {
+  	var all_checkboxes = $('.teacher_checkboxes_child').childern;
+  	console.log(all_checkboxes);
+  }
+ 	
+}).change();*/
+
+</script>
+
+
+<script language="javascript">
+$(function(){
+
+	// add multiple select / deselect functionality
+	$("#selectall").click(function () {
+		console.log($("#selectall").attr("checked", "checked"));	
+		if ($("#selectall").attr("checked", "checked"))
+		  	$('.case').attr('checked', this.checked);
+		  //$('.case').prop('checked', true); 
+		else
+			$(".case").removeAttr("checked");
+	});
+
+	// if all checkbox are selected, check the selectall checkbox
+	// and viceversa
+	$(".case").click(function(){
+
+		if($(".case").length == $(".case:checked").length) {
+			$("#selectall").attr("checked", "checked");
+		} else {
+			$("#selectall").removeAttr("checked");
+		}
+
+	});
+});
+</script>

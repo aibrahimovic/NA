@@ -1,0 +1,45 @@
+<br>
+<span id="notice" style="margin-left:0px;"><%= notice %></span>
+<div class="subject_buttons row">
+    <%= button_to 'Unesi novi predmet', new_subject_path, class: 'btn btn-primary', :method => :get %>
+    <%= button_to 'Učitaj sve predmete', import_subjects_subjects_path, class: 'btn btn-default', :method => :get %>
+</div>
+
+<div class="row">
+<br><br><br>
+<table class="subject_table table-striped">
+  <thead>
+    <tr class="subject_table_header">
+      <th>Šifra predmeta</th>
+      <th>Naziv predmeta</th>
+      <th>Broj sati predavanja</th>
+      <th>Broj sati vježbi</th>
+      <th>Broj sati tutorijala</th>
+      <th>Broj sati posebnih aktivnosti</th>
+      <th>Studijski program</th>
+      <th>Ciklus studija</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @subjects.each do |subject| %>
+      <tr>
+        <td><%= subject.code %></td>
+        <td><%= subject.name %></td>
+        <td><%= subject.number_of_lectures %></td>
+        <td><%= subject.number_of_exercises %></td>
+        <td><%= subject.number_of_tutorials %></td>
+        <td><%= subject.number_of_special_activities %></td>
+        <td><%= subject.study_program %></td>
+        <td><%= subject.study_cicle %></td>
+        <td><%= link_to 'Prikaži', subject %></td>
+        <td><%= link_to 'Uredi', edit_subject_path(subject) %></td>
+        <td><%= link_to 'Obriši', subject, method: :delete, data: { confirm: 'Da li ste sigurni?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+</div>
+
+<br>

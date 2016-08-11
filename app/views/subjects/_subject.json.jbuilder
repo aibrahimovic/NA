@@ -1,0 +1,2 @@
+json.extract! subject, :id, :code, :name, :number_of_lectures, :number_of_exercises, :number_of_tutorials, :number_of_special_activities, :study_program, :study_cicle, :created_at, :updated_at
+json.url subject_url(subject, format: :json)
