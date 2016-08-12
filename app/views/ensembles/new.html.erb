@@ -1,27 +1,42 @@
-<button id="ensemble_first_version">Spasi preliminarnu verziju</button>
+
+<br>
+<span id="notice" style="margin-left:0px;"><%= notice %></span>
+
+<div class="row">
+
+<%= button_to 'Spasi preliminarnu verziju', '#', class: 'btn btn-primary', :id => 'ensemble_first_version', :method => :get %>
+<br><br>
 <table class="table">
+<thead>
+    <tr>
 	<th>Predmet</th>
 	<th>Uloge</th>
 	<th>Grupe</th>
 	<th>Spasi</th>
-	<br>
+	<th colspan="3"></th>
+    </tr>
+  </thead>
 	
-
+  <tbody>
 	<% @subjects.each do |subject| %>
+
+	<% subject = @subjects.first %>
 	<% @rows = [] %>
-	<tr id="<%= subject.id %>" data-saved="">
-		<td><%= subject.id %> <%= subject.name %></td>
+	<% @rows = @ensembles.where(subject_id: subject.id) %>
+
+
+	<% if @rows != [] %>
+
+	<tr id="<%= subject.id %>" style="background-color:#F0F8FF">
+		<td><%= subject.name %></td>
 		<td>
 
-		<div class="cell" id="cell_<%=subject.id%>" data-subject="<%=subject.id%>">
-
-		<% @rows = @ensembles.where(subject_id: subject.id) %>
-
-		<% if @rows != [] %>
-			
+		<div class="cell row" id="cell_<%=subject.id%>" data-subject="<%=subject.id%>">
+	
 			<% @rows.each do |row|%>
 
-				<select class="select_subject_roles" data-subject="<%=subject.id%>">
+			<div class="col-md-6">
+				<select class="select_subject_roles form-control" data-subject="<%=subject.id%>">
 					<option disabled selected value></option>
 			    	
 			    	<% @subject_roles.each do |subject_role| %>
@@ -35,8 +50,9 @@
 			    	<% end %>
 
 				</select>
-
-				<select class="select_teachers" data-subject="<%=subject.id%>" value="<%= row.teacher_id %>">
+			</div>
+			<div class="col-md-6">
+				<select class="select_teachers form-control" data-subject="<%=subject.id%>" value="<%= row.teacher_id %>">
 					<option disabled selected value></option>
 
 			    	<% @teachers.each do |teacher| %>
@@ -49,17 +65,25 @@
 				        <%end%>
 			    	<% end %>
 				</select>
-				<br>
+			</div>
+			<br>
 
-			<%end%>
+		<%end%>
+		</div>
 
-		<%else%>
+	<%else%>
+
+		<tr id="<%= subject.id %>" data-saved="saved" >
+		<td><%= subject.id %> <%= subject.name %></td>
+		<td>
+
+		<div class="cell row" id="cell_<%=subject.id%>" data-subject="<%=subject.id%>">
 			
 			<% @default_subject_roles.each do |row|%>
 
-				<select class="select_subject_roles" data-subject="<%=subject.id%>">
-					<option disabled selected value></option>
-			    	
+			<div class="col-md-6">
+				<select class="select_subject_roles form-control" data-subject="<%=subject.id%>">
+					<option disabled selected value></option>	
 			    	<% @subject_roles.each do |subject_role| %>
 			    		<% if row.id == subject_role.id %>
 				        	<option class="roles" value="<%= row.id %>" data-id="<%= subject_role.id %>" selected><%= subject_role.name %>
@@ -71,8 +95,9 @@
 			    	<% end %>
 
 				</select>
-
-				<select class="select_teachers" data-subject="<%=subject.id%>">
+			</div>
+			<div class="col-md-6">
+				<select class="select_teachers form-control" data-subject="<%=subject.id%>">
 					<option disabled selected value></option>
 
 			    	<% @teachers.each do |teacher| %>
@@ -80,21 +105,18 @@
 					    </option>
 			    	<% end %>
 				</select>
-				<br>
+			</div>
+			<br>
 
 			<%end%>
-
-
-
 		<%end%>
 		
-
-		</div>
+		
 		<!-- <button class="add_new_role" data-id="<%=subject.id%>" type="submit">Dodaj novu rolu</button>-->
 		<div  class="add_new_role" data-id="<%=subject.id%>" type="submit">
-		   <%= image_tag "new_role3.png", height: '25', width: '25', :class => 'new_role_button' %>
+		   <%= image_tag "new_role3.png", height: '35', width: '35', :class => 'new_role_button' %>
 		</div>
-		
+		</div>
 		<!-- <= collection_select(:teacher_id, 0, @teachers, :id, :last_name, :prompt => "") %> 
 		<button class="ensemble_save_row" data-id="<%=subject.id%>" type="submit">Spasi</button></td>-->
 		<br>
@@ -106,21 +128,20 @@
 		</td>
 	
 	<td></td>
-	<td>
+	<td class="ensemble_buttons">
 		<div  class="ensemble_save_row" data-id="<%=subject.id%>" type="submit">
 		   <%= image_tag "check1.png", height: '25', width: '25', :class => 'new_role_button' %>
 		</div>
+		<br><br><br>
+
 	</td>
 		
 
 	</tr>
-	<%end%>
+<%end%>
+</tbody>
 </table>
 
-
-
-
-<%= link_to 'Back', ensembles_path %>
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
@@ -131,15 +152,196 @@ $(document).ready(function(){
 	list = [];
 	var all_teachers;        	
 
-	$('td').each(function() {
-		if ($(this).data('saved') == 'saved')
-			$(id).css("background-color","#F0F8FF");
-
-	})
+	console.log($('.ensemble_save_row'));
 
 
+});
 
-	/*$.ajax({
+
+$('#ensemble_first_version').click(function() {
+	$('.ensemble_save_row').each(function() {
+		$(this).trigger( "click" );
+	});
+});
+
+//dodavanje uloge za predmet
+$('.add_new_role').click(function() {
+
+	var subject_id = $(this).data('id');
+	console.log(subject_id);
+	var cell_class = '#cell_' + subject_id;
+	//var cell_class = '.row';
+	var object;
+
+
+	$(cell_class).append('<div class="col-md-6"></div>');	
+	object = $(cell_class).children().last();
+	$(object).append("<select class='select_subject_roles form-control'></select>");
+	object = $(object).children().last();
+	var id = '#'+subject_id;
+
+	$(object).append("<option disabled selected value></option>");
+
+	$.ajax({
+	    url: '/subject_roles/getSubjectRoles',
+	    type: 'GET',
+        dataType:'json',
+        async: false,
+        success: function(json) {
+        	subject_roles = json
+        	console.log(subject_roles);
+        	console.log(object);
+
+			for (i=0; i<subject_roles.length; i++) {
+				$(object).append(
+			        $('<option data-id='+subject_roles[i]["id"]+'></option>').val(subject_roles[i]['id']).html(subject_roles[i]['name'])
+
+			    );
+			}
+		}
+	});
+
+	$(cell_class).append("</select> ");
+
+
+	$(cell_class).append('<div class="col-md-6"></div>');	
+	object = $(cell_class).children().last();
+	
+	$(object).append("<select class='select_teachers form-control'>");
+	object = $(object).children().last();
+	$(object).append("<option disabled selected value></option>");
+
+	$.ajax({
+	    url: '/teachers/getTeachers',
+	    type: 'GET',
+        dataType:'json',
+        success: function(json) {
+        	teachers = json
+			for (i=0; i<teachers.length; i++) {
+				$(object).append(
+			        $('<option data-id='+teachers[i]["id"]+'></option>').val(teachers[i]['id']).html(teachers[i]['first_name'] + " " + teachers[i]['last_name'])
+
+			    );
+			}
+			$(id).css("background-color","white");
+		}
+	});
+	$(cell_class).append("</select>");
+	$(cell_class).append('</div>');
+	$(cell_class).append('</div>');
+	//$(cell_class).append("<button>Obriši</button>");
+	$(cell_class).append("<br>");
+
+	
+});
+
+function find_subject_data(list, subject_id) {
+	filtered_list = []
+	for (i=0; i<list.length; i++) {
+		if (list[i].subject_id==subject_id) {
+			filtered_list.push(list[i]);
+		}
+	}
+	console.log(filtered_list);
+	return filtered_list;
+}
+
+//spšavanje jednog reda
+$('.ensemble_save_row').click(function() {
+	var subject_id = $(this).data('id');
+	console.log(subject_id);
+	var cell_class = '#cell_' + subject_id;
+
+	var object = $(cell_class).children(".col-md-6");
+	console.log("Djeca od diva");
+	console.log($(object).children(".select_teachers, .select_subject_roles"));
+
+	var items = [];
+	$(object).children(".select_teachers, .select_subject_roles").each(function () {    
+		var row_item = $(this).children(":selected").data('id');
+	    items.push(row_item);
+	});
+
+	console.log("Itemi: ");
+	console.log(items);
+
+	for (i=0; i<items.length; i=i+2) {
+		var subject_role_id = items[i];
+		var teacher_id = items[i+1];
+
+		if (subject_role_id != undefined && teacher_id != undefined) {
+			list.push({subject_id: subject_id, subject_role_id: subject_role_id, teacher_id: teacher_id});
+			console.log(list);
+		}
+		else if (subject_role_id == undefined)
+			alert("Potrebno je selektovati ulogu nastavnika.");
+		else if (teacher_id != undefined) 
+			alert("Potrebno je selektovati nastavnika.");
+	}
+
+	var filtered_list = find_subject_data(list, subject_id);
+	var id = '#'+subject_id
+	//slanje podataka na servis
+	$.ajax({
+	    url: '/ensembles/create_record',
+	        data: { 
+	       	list: filtered_list
+        },
+        type: 'POST',
+        success: function(result) {
+        if (result.status) {
+        	$(id).css("background-color","#F0F8FF");
+        	$(id).data('saved', 'saved');
+	    }
+	   }     
+	});
+
+
+
+	/*var subject_role_id = $(this).data('id');
+	    var teacher_id = 
+		var selected_subject_role_id = $(this).children(":selected").data('id');
+		var subject_id = $(this).data('subject');
+		
+		//console.log("Subject role id: " + subject_role_id);
+		//console.log("Teacher id: " + teacher_id);
+		
+		list.push({subject_id: subject_id, subject_role_id: subject_role_id, teacher_id: teacher_id});
+		console.log(list);*/
+
+	/*for (i=0; i<cell_1.length; i++) {
+
+		var test;
+		test = $(cell_class).children(".select_teachers").children(":selected").data('id');
+		//test = test.children;
+		console.log(test);
+	}*/
+
+	
+
+	//filtered_list = find_subject_data(list, subject_id);
+	
+	//console.log(list[i].subject_id + " " + list[i].subject_role_id + " " + list[i].teacher_id);
+			
+
+
+});
+
+/*$( document ).ready(function() {
+    $.ajax({
+            url: '/ensembles/test',
+            data: { 
+              name: "azra",
+            },
+            type: 'POST',
+            success: function(result) {
+              if (result.error) {
+              }
+            }
+        });
+});*/
+
+/*$.ajax({
 	    url: '/ensembles/getCurrentEnsemble',
 	    type: 'GET',
         dataType:'json',
@@ -205,172 +407,6 @@ $(document).ready(function(){
         	}
 		}
 	});*/
-});
-
-
-	
-
-
-$('#ensemble_first_version').click(function() {
-	alert("test");
-});
-
-$('.add_new_role').click(function() {
-
-	var subject_id = $(this).data('id');
-	console.log(subject_id);
-	var cell_class = '#cell_' + subject_id;
-
-	$(cell_class).append("<select class='select_subject_roles'></select>");
-	var object = $(cell_class).children().last();
-	console.log(object);
-
-	$(object).append("<option disabled selected value></option>");
-
-	$.ajax({
-	    url: '/subject_roles/getSubjectRoles',
-	    type: 'GET',
-        dataType:'json',
-        async: false,
-        success: function(json) {
-        	subject_roles = json
-        	console.log(subject_roles);
-        	console.log(object);
-
-			for (i=0; i<subject_roles.length; i++) {
-				$(object).append(
-			        $('<option data-id='+subject_roles[i]["id"]+'></option>').val(subject_roles[i]['id']).html(subject_roles[i]['name'])
-			    );
-			}
-		}
-	});
-
-	$(cell_class).append("</select> ");
-
-	
-	$(cell_class).append("<select class='select_teachers'>");
-	var object = $(cell_class).children().last();
-	$(object).append("<option disabled selected value></option>");
-
-	$.ajax({
-	    url: '/teachers/getTeachers',
-	    type: 'GET',
-        dataType:'json',
-        success: function(json) {
-        	teachers = json
-			for (i=0; i<teachers.length; i++) {
-				$(object).append(
-			        $('<option data-id='+teachers[i]["id"]+'></option>').val(teachers[i]['id']).html(teachers[i]['first_name'] + " " + teachers[i]['last_name'])
-			    );
-			}
-		}
-	});
-	$(cell_class).append("</select>");
-	$(cell_class).append("<br>");
-
-	
-});
-
-function find_subject_data(list, subject_id) {
-	filtered_list = []
-	for (i=0; i<list.length; i++) {
-		if (list[i].subject_id==subject_id) {
-			filtered_list.push(list[i]);
-		}
-	}
-	console.log(filtered_list);
-	return filtered_list;
-}
-
-$('.ensemble_save_row').click(function() {
-	var subject_id = $(this).data('id');
-	console.log(subject_id);
-	var cell_class = '#cell_' + subject_id;
-
-	var items = [];
-	$(cell_class).children(".select_teachers, .select_subject_roles").each(function () {    
-		var row_item = $(this).children(":selected").data('id');
-	    items.push(row_item);
-	});
-
-	console.log(items);
-
-	for (i=0; i<items.length; i=i+2) {
-		var subject_role_id = items[i];
-		var teacher_id = items[i+1];
-
-		if (subject_role_id != undefined && teacher_id != undefined) {
-			list.push({subject_id: subject_id, subject_role_id: subject_role_id, teacher_id: teacher_id});
-			console.log(list);
-		}
-		else if (subject_role_id == undefined)
-			alert("Potrebno je selektovati ulogu nastavnika.");
-		else if (teacher_id != undefined) 
-			alert("Potrebno je selektovati nastavnika.");
-	}
-
-	var filtered_list = find_subject_data(list, subject_id);
-	var id = '#'+subject_id
-	//slanje podataka na servis
-	$.ajax({
-	    url: '/ensembles/create_record',
-	        data: { 
-	       	list: filtered_list
-        },
-        type: 'POST',
-        success: function(result) {
-        if (result.status) {
-        	$(id).css("background-color","#F0F8FF");
-			$(id).data('saved','saved'); 
-        	
-	    }
-	   }     
-	});
-
-
-
-	/*var subject_role_id = $(this).data('id');
-	    var teacher_id = 
-		var selected_subject_role_id = $(this).children(":selected").data('id');
-		var subject_id = $(this).data('subject');
-		
-		//console.log("Subject role id: " + subject_role_id);
-		//console.log("Teacher id: " + teacher_id);
-		
-		list.push({subject_id: subject_id, subject_role_id: subject_role_id, teacher_id: teacher_id});
-		console.log(list);*/
-
-	/*for (i=0; i<cell_1.length; i++) {
-
-		var test;
-		test = $(cell_class).children(".select_teachers").children(":selected").data('id');
-		//test = test.children;
-		console.log(test);
-	}*/
-
-	
-
-	//filtered_list = find_subject_data(list, subject_id);
-	
-	//console.log(list[i].subject_id + " " + list[i].subject_role_id + " " + list[i].teacher_id);
-			
-
-
-});
-
-/*$( document ).ready(function() {
-    $.ajax({
-            url: '/ensembles/test',
-            data: { 
-              name: "azra",
-            },
-            type: 'POST',
-            success: function(result) {
-              if (result.error) {
-              }
-            }
-        });
-});*/
 
   
 

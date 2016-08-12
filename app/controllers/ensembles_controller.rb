@@ -32,7 +32,7 @@ class EnsemblesController < ApplicationController
     academic_year = AcademicYear.get_current_academic_year
     @ensembles = Ensemble.where(academic_year: academic_year)
 
-    @subjects = Subject.all
+    @subjects = Subject.first(3)
     @teachers = Teacher.all
 
     @default_subject_roles = SubjectRole.first(2)
@@ -86,8 +86,8 @@ class EnsemblesController < ApplicationController
 
 
   def create_record
+    status = false
     list = params[:list]
-    
     academic_year = AcademicYear.get_current_academic_year
 
     #subject_id =params[:subject_id]
@@ -105,7 +105,18 @@ class EnsemblesController < ApplicationController
       ensemble_item = Ensemble.find_or_initialize_by(subject_id: subject_id, academic_year_id: academic_year, teacher_id: teacher_id, subject_role_id: subject_role_id)
       if ensemble_item.created_at.nil?
         ensemble_item.save
+        status = true
         #return render json: ensemble_item
+      end
+
+      respond_to do |format|
+        if status == true
+          format.html { redirect_to academic_years_url, notice: 'Akademska godina je uspješno kreirana.' }
+          format.json { render json: 'OK' }
+
+        else
+          format.html { redirect_to academic_years_url, notice: 'Akademska godina ne može biti kreirana jer još uvijek nije počela.' }
+        end
       end
 
 
@@ -132,7 +143,7 @@ class EnsemblesController < ApplicationController
       
 
     end 
-    return render json: { status: 'New record saved.' }
+    
 
   end
 
