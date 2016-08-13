@@ -1,5 +1,6 @@
 class AcademicYearsController < ApplicationController
   before_action :set_academic_year, only: [:show, :edit, :update, :destroy]
+  before_filter :confirm_logged_in
 
   # GET /academic_years
   # GET /academic_years.json

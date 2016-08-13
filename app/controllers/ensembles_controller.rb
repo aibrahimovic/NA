@@ -2,6 +2,7 @@ class EnsemblesController < ApplicationController
   before_action :set_ensemble, only: [:show, :edit, :update, :destroy]
   protect_from_forgery
   skip_before_filter :verify_authenticity_token  
+  before_filter :confirm_logged_in
   
   # GET /ensembles
   # GET /ensembles.json

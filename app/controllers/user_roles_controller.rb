@@ -1,5 +1,6 @@
 class UserRolesController < ApplicationController
   before_action :set_user_role, only: [:show, :edit, :update, :destroy]
+  before_filter :confirm_logged_in
 
   # GET /user_roles
   # GET /user_roles.json

@@ -1,0 +1,41 @@
+<div class="row login_notice">
+	<div class="col-md-10">
+	<span id="notice" style="color:#cc0000;"><%= notice %> </span>
+	</div>
+</div>
+
+<%= form_for(:session, url: login_path) do |f| %>
+  <div class = "row login_form">
+  <div class="col-md-10">
+
+    <div class="form-group row">
+      <%= f.label :username, 'Korisničko ime', :class => "col-xs-3 col-form-label"%>
+      <div class="col-xs-9">
+        <%= f.text_field :username, :class => "form-control"%>
+      </div>
+      
+    </div>
+
+   
+    <div class="form-group row">
+      <%= f.label :password, 'Šifra', :class => "col-xs-3 col-form-label" %>
+      <div class="col-xs-9">
+        <%= f.password_field :password, :class => "form-control"%>
+      </div>
+    </div>
+
+    <div class="actions row">
+    <div class="col-xs-3 col-form-label"></div>
+    <div class="col-xs-9">
+      <%= f.submit 'Prijava', :class => 'btn btn-primary', :style => 'width: 100px;' %> 
+    </div>
+    </div>
+  </div>
+
+  <div class="col-md-2">
+  </div>
+  </div>
+
+<% end %>
+
+

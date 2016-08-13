@@ -1,5 +1,6 @@
 class DepartmentsController < ApplicationController
   before_action :set_department, only: [:show, :edit, :update, :destroy]
+  before_filter :confirm_logged_in
 
   # GET /departments
   # GET /departments.json

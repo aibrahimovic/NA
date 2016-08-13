@@ -1,5 +1,6 @@
 class StudentNumbersController < ApplicationController
   before_action :set_student_number, only: [:show, :edit, :update, :destroy]
+  before_filter :confirm_logged_in
 
   # GET /student_numbers
   # GET /student_numbers.json

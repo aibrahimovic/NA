@@ -2,7 +2,7 @@ require 'csv'
 
 class SubjectsController < ApplicationController
   before_action :set_subject, only: [:show, :edit, :update, :destroy]
-
+  before_filter :confirm_logged_in
 
 
   # GET /subjects

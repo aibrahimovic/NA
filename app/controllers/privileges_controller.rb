@@ -1,5 +1,6 @@
 class PrivilegesController < ApplicationController
   before_action :set_privilege, only: [:show, :edit, :update, :destroy]
+  before_filter :confirm_logged_in
 
   # GET /privileges
   # GET /privileges.json

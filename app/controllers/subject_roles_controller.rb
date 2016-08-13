@@ -1,5 +1,6 @@
 class SubjectRolesController < ApplicationController
   before_action :set_subject_role, only: [:show, :edit, :update, :destroy]
+  before_filter :confirm_logged_in
 
   # GET /subject_roles
   # GET /subject_roles.json

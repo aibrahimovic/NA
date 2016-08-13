@@ -71,12 +71,20 @@ user_info.link_to_logout {
 
 }
 
+.login_form {
+  position: relative;
+  margin-top: 50px;
+}
+
+.login_notice {
+  position: relative;
+  padding-top: 150px;
+}
+
 .new_role_button {
   margin-top: 20 0 40 0px ;
   padding: 10;
   float: right;
-
-
 }
 
 #error_explanation {
