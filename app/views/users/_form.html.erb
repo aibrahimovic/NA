@@ -52,6 +52,14 @@
       
     </div>
 
+    <div class="field row">
+      <%= f.label :role, 'Uloga u sistemu', :class => "col-xs-3 col-form-label" %>
+      <div class="col-xs-9">
+
+      <%=f.select(:user_role, @roles.map { |role| [ role.name, role.id ] }, :class => 'span3 controls controls-row form-control') %>
+      </div>
+    </div>
+
   <div class="form-group row">
     <%= f.label :password, 'Šifra', :class => "col-xs-3 col-form-label" %>
     <div class="col-xs-9">

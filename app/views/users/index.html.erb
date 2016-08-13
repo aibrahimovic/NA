@@ -1,8 +1,10 @@
 <span id="notice" style="margin-left:0px;"><%= notice %></span>
 
-<div class="row">
-<%= button_to 'Unesi novog korisnika', new_user_path, class: 'btn btn-primary', :method => :get %>
-<br><br><br>
+<h4>Korisnici</h4>
+<br>
+<%= button_to 'Kreiraj novog korisnika', new_user_path, class: 'btn btn-default', :method => :get %>
+
+<br><br>
 <table class="table">
   <thead>
     <tr>
@@ -30,4 +32,4 @@
 </table>
 
 <br>
-</div>
+

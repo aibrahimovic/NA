@@ -18,6 +18,7 @@ class UsersController < ApplicationController
   # GET /users/new
   def new
     @user = User.new
+    @roles = Role.all
   end
 
   # GET /users/1/edit
@@ -72,6 +73,6 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:first_name, :last_name, :username, :email, :password, :password_confirmation)
+      params.require(:user).permit(:first_name, :last_name, :username, :email, :password, :password_confirmation, :user_role)
     end
 end
