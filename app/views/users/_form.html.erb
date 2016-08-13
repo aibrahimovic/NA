@@ -1,8 +1,9 @@
 <%= form_for(user) do |f| %>
   <% if user.errors.any? %>
     <div id="error_explanation">
+    <div class="alert alert-danger">
       <h2><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
-
+    </div>
       <ul>
       <% user.errors.full_messages.each do |message| %>
         <li><%= message %></li>
@@ -11,22 +12,69 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :first_name %>
-    <%= f.text_field :first_name %>
+
+<div class="row">
+ <div class="col-md-6">
+
+    <div class="form-group row">
+     
+      <%= f.label :ime, :class => "col-xs-3 col-form-label"%>
+      <div class="col-xs-9">
+        <%= f.text_field :first_name, :class => "form-control"%>
+      </div>
+      
+    </div>
+
+    <div class="form-group row">
+     
+      <%= f.label :prezime, :class => "col-xs-3 col-form-label"%>
+      <div class="col-xs-9">
+        <%= f.text_field :last_name, :class => "form-control"%>
+      </div>
+      
+    </div>
+
+    <div class="form-group row">
+     
+      <%= f.label :email, :class => "col-xs-3 col-form-label"%>
+      <div class="col-xs-9">
+        <%= f.email_field :email, :class => "form-control"%>
+      </div>
+      
+    </div>
+
+    <div class="form-group row">
+     
+      <%= f.label :korisničko_ime, :class => "col-xs-3 col-form-label"%>
+      <div class="col-xs-9">
+        <%= f.text_field :username, :class => "form-control"%>
+      </div>
+      
+    </div>
+
+  <div class="form-group row">
+    <%= f.label :password, 'Šifra', :class => "col-xs-3 col-form-label" %>
+    <div class="col-xs-9">
+      <%= f.password_field :password, :class => "form-control" %>
+    </div>
+  </div>
+  
+  <div class="form-group row">
+    <%= f.label :password_confirmation, "Potvrda šifre", :class => "col-xs-3 col-form-label" %>
+    <div class="col-xs-9">
+      <%= f.password_field :password_confirmation, :class => "form-control" %>
+    </div>
   </div>
 
-  <div class="field">
-    <%= f.label :last_name %>
-    <%= f.text_field :last_name %>
+  <div class="actions row">
+    <div class="col-xs-3 col-form-label"></div>
+    <div class="col-xs-9">
+      <%= f.submit 'Kreiraj korisnika', :class => 'btn btn-primary' %> 
+    </div>
+    </div>
   </div>
 
-  <div class="field">
-    <%= f.label :username %>
-    <%= f.text_field :username %>
+  <div class="col-md-6">
   </div>
 
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+ <% end %>

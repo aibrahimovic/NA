@@ -50,6 +50,9 @@
 	        <%= link_to "Predmeti",   subjects_path, :class => "sidebar_item" %><br>
 	        <%= link_to "Generisanje dokumenata", documents_ensembles_path, :class => "sidebar_item"%><br>
           <%= link_to "Izračun projiciranog broja studenata", student_numbers_path, :class => "sidebar_item"%><br>
+          <br>
+          <br>
+          <%= link_to "Korisnici",  users_path, :class => "sidebar_item" %><br>
 	    </nav>
       <br>
       <br>
@@ -73,6 +76,7 @@
 	  		</div>
 	  	</div>
 	  </div>
+    <%= debug(params) if Rails.env.development? %>
 	</div>
 
 	
