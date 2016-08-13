@@ -1,4 +1,6 @@
-<%= button_to 'Nastavni ansambl za akademsku godinu', downloadEnsemble_ensembles_path + '.pdf', :class => 'documents btn btn-primary', :method => :get%><br><br>
+<%= button_to 'Nastavni ansambl za akademsku godinu', downloadEnsemble_ensembles_path+'.pdf', :class => 'documents btn btn-primary', :method => :get%><br><br>
+
+<%= button_to 'Izvještaj o nepokrivenim predmetima', uncoveredSubjects_ensembles_path+('.pdf'), :class => 'documents btn btn-primary', :method => :get %><br><br>
 
 
 
@@ -20,7 +22,6 @@
 
 <br><br>
 
-<%= button_to 'Izvještaj o nepokrivenim predmetima', uncoveredSubjects_ensembles_path, :class => 'documents btn btn-primary', :method => :get%><br><br>
 
 <%= button_to 'Izvještaj o normama nastavnika', '#', :class => 'documents btn btn-primary', :method => :get%>
 

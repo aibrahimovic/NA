@@ -11,7 +11,7 @@
     <tr>
 	<th>Predmet</th>
 	<th>Uloge</th>
-	<th>Grupe</th>
+	<th></th>
 	<th>Spasi</th>
 	<th colspan="3"></th>
     </tr>
@@ -20,7 +20,6 @@
   <tbody>
 	<% @subjects.each do |subject| %>
 
-	<% subject = @subjects.first %>
 	<% @rows = [] %>
 	<% @rows = @ensembles.where(subject_id: subject.id) %>
 
@@ -68,13 +67,28 @@
 			</div>
 			<br>
 
-		<%end%>
+			<%end%>
 		</div>
 
+		<div  class="add_new_role" data-id="<%=subject.id%>" type="submit">
+		   <%= image_tag "new_role3.png", height: '35', width: '35', :class => 'new_role_button' %>
+		</div>
+	
+	</td>
+
+	<td></td>
+	<td class="ensemble_buttons">
+		<div  class="ensemble_save_row" data-id="<%=subject.id%>" type="submit">
+		   <%= image_tag "check1.png", height: '25', width: '25', :class => 'new_role_button' %>
+		</div>
+		<br><br><br>
+	</td>
+	</tr>
+	
 	<%else%>
 
 		<tr id="<%= subject.id %>" data-saved="saved" >
-		<td><%= subject.id %> <%= subject.name %></td>
+		<td><%= subject.name %></td>
 		<td>
 
 		<div class="cell row" id="cell_<%=subject.id%>" data-subject="<%=subject.id%>">
@@ -109,23 +123,14 @@
 			<br>
 
 			<%end%>
-		<%end%>
-		
-		
-		<!-- <button class="add_new_role" data-id="<%=subject.id%>" type="submit">Dodaj novu rolu</button>-->
+		</div>
 		<div  class="add_new_role" data-id="<%=subject.id%>" type="submit">
 		   <%= image_tag "new_role3.png", height: '35', width: '35', :class => 'new_role_button' %>
 		</div>
-		</div>
-		<!-- <= collection_select(:teacher_id, 0, @teachers, :id, :last_name, :prompt => "") %> 
-		<button class="ensemble_save_row" data-id="<%=subject.id%>" type="submit">Spasi</button></td>-->
-		<br>
-		
-		
+	
 
-		
-
-		</td>
+	<br>
+	</td>
 	
 	<td></td>
 	<td class="ensemble_buttons">
@@ -133,11 +138,9 @@
 		   <%= image_tag "check1.png", height: '25', width: '25', :class => 'new_role_button' %>
 		</div>
 		<br><br><br>
-
 	</td>
-		
-
 	</tr>
+	<%end%>
 <%end%>
 </tbody>
 </table>
@@ -201,9 +204,10 @@ $('.add_new_role').click(function() {
 		}
 	});
 
-	$(cell_class).append("</select> ");
+	$(cell_class).append("</select>");
 
-
+	console.log("Prvi append");
+	console.log($(cell_class));
 	$(cell_class).append('<div class="col-md-6"></div>');	
 	object = $(cell_class).children().last();
 	

@@ -1,0 +1,35 @@
+<head>
+
+</head>
+<br><br><br>
+<span style="font-size:16px;"><b> Nastavni ansambl za <%= @academic_year.name %> akademsku godinu </b></span>
+<br><br>
+
+<table class="table">
+	<tr>
+      <th>Naziv predmeta</th>
+      <th>Nastavnici</th>
+	</tr>
+
+	<% @ensembles.each do |subject, ensemble| %>
+	<div class="row">
+		<tr>
+			<td class="col-md-3"> <%= subject.name %> </td></div>
+			<td class="col-md-9">
+			
+			<% ensemble.each do |item| %>
+			<div class="row">
+				<div class="col-md-3" style="alignt:right;"><b><%= item.subject_role.name %>:</b> </div> 
+				<div class="col-md-9"><%= item.teacher.first_name %> <%= item.teacher.last_name %></div>
+				<br>
+			</div>
+			<% end %>
+			
+			</td>
+		</tr>
+	</div>
+	<%end%>
+</table>
+
+<br><br>
+

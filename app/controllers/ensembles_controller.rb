@@ -33,7 +33,7 @@ class EnsemblesController < ApplicationController
     academic_year = AcademicYear.get_current_academic_year
     @ensembles = Ensemble.where(academic_year: academic_year)
 
-    @subjects = Subject.first(3)
+    @subjects = Subject.all.limit(10)
     @teachers = Teacher.all
 
     @default_subject_roles = SubjectRole.first(2)
@@ -104,22 +104,23 @@ class EnsemblesController < ApplicationController
       current_items = Ensemble.where(subject_id: subject_id, academic_year_id: academic_year).all
 
       ensemble_item = Ensemble.find_or_initialize_by(subject_id: subject_id, academic_year_id: academic_year, teacher_id: teacher_id, subject_role_id: subject_role_id)
+      
       if ensemble_item.created_at.nil?
         ensemble_item.save
         status = true
-        #return render json: ensemble_item
+        return render json: {status: 'OK'}
       end
 
+=begin
       respond_to do |format|
         if status == true
-          format.html { redirect_to academic_years_url, notice: 'Akademska godina je uspješno kreirana.' }
+          #format.html { redirect_to ensembles_url, notice: 'Nastavni ansambl za predmet je spašen.' }
           format.json { render json: 'OK' }
-
         else
-          format.html { redirect_to academic_years_url, notice: 'Akademska godina ne može biti kreirana jer još uvijek nije počela.' }
+          format.html { redirect_to academic_years_url, notice: 'Desila se greška prilikom spašavanja nastavnog ansambla za ovaj predmet.' }
         end
       end
-
+=end
 
       #current_items.each do |current_item|
       
@@ -152,10 +153,17 @@ class EnsemblesController < ApplicationController
     @teacher = Teacher.all
   end
 
+  #Dokument - Nastavni ansambl za x akademsku godinu
   def downloadEnsemble
-     @ensembles = Ensemble.all
-     academic_year = AcademicYear.get_current_academic_year
+    academic_year_id = AcademicYear.get_current_academic_year
+    @academic_year = AcademicYear.find(academic_year_id)
+    @ensembles = Ensemble.where(academic_year: academic_year_id)
 
+    @ensembles = Ensemble.where(academic_year: academic_year_id).group_by(&:subject)
+    set_document_rendering(true)
+
+
+=begin
      respond_to do |format|
         format.html
         format.pdf do
@@ -164,8 +172,10 @@ class EnsemblesController < ApplicationController
           send_data pdf.render, filename: 'report.pdf', type: 'application/pdf'
         end
       end
+=end
   end
 
+  #Dokument - Rješenje o radnim zadacim nastavnika
   def teacherTasks 
     @teachers = Teacher.all
 
@@ -191,9 +201,12 @@ class EnsemblesController < ApplicationController
   def statistics
   end
 
+  #Statistika - Izvještaj o nepokrivenim predmetima
   def uncoveredSubjects
     @covered_subjects = Ensemble.uniq.pluck(:subject_id)
     @uncoveredSubjects = Subject.where("id NOT IN (?)", @covered_subjects)
+    @academic_year = AcademicYear.find (AcademicYear.get_current_academic_year)
+    set_document_rendering(true)
   end
 
   def getCurrentEnsemble
