@@ -10,12 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160813091536) do
+ActiveRecord::Schema.define(version: 20160814212050) do
 
   create_table "academic_years", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "status"
   end
 
   create_table "all_subject_roles", force: :cascade do |t|
@@ -56,6 +57,13 @@ ActiveRecord::Schema.define(version: 20160813091536) do
     t.integer  "role_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "role_privileges", force: :cascade do |t|
+    t.integer  "role_id"
+    t.integer  "privilege_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
   end
 
   create_table "roles", force: :cascade do |t|
@@ -104,8 +112,9 @@ ActiveRecord::Schema.define(version: 20160813091536) do
     t.string   "position"
     t.datetime "election_date"
     t.integer  "election_period"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+    t.datetime "election_date_end"
   end
 
   create_table "user_roles", force: :cascade do |t|

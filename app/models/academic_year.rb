@@ -1,3 +1,7 @@
+#status == 0 NA u procesu kreiranja
+#status == 1 NA preliminarna verzija
+#status == 2 NA finalna verzija
+
 class AcademicYear < ApplicationRecord
 	has_many :ensemble
 	has_many :student_number

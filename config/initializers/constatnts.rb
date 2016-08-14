@@ -5,11 +5,11 @@ class Constant
   end
 
   def self.professor_norm
-  	{:lectures => [4,6], :preparations => [8,10], :consultations => 10}
+  	{:lectures => [60, 90], :preparations => [120, 150], :consultations => 150}
   end
 
   def self.assistent_norm
-  	{:tutorials => 12, :preparations => 10, :consultations => 10}
+  	{:tutorials => 180, :preparations => 150, :consultations => 150}
   end
 
   def self.group_sizes

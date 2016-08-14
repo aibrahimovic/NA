@@ -1,0 +1,1 @@
+json.array! @role_privileges, partial: 'role_privileges/role_privilege', as: :role_privilege

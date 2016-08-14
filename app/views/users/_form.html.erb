@@ -1,3 +1,9 @@
+<span id="notice"><%= notice %></span>
+
+<h4>Novi korisnik</h4>
+<br>
+
+<br><br>
 <%= form_for(user) do |f| %>
   <% if user.errors.any? %>
     <div id="error_explanation">
@@ -51,19 +57,20 @@
       </div>
       
     </div>
-
+    
     <div class="field row">
       <%= f.label :role, 'Uloga u sistemu', :class => "col-xs-3 col-form-label" %>
       <div class="col-xs-9">
-
-      <%=f.select(:user_role, @roles.map { |role| [ role.name, role.id ] }, :class => 'span3 controls controls-row form-control') %>
+        <%= f.collection_select :role, @roles, :id, :name, {}, { :class => 'span3 controls controls-row form-control'} %>
       </div>
     </div>
+
+          <!--= f.select :role, @roles.map { |role| [ role.name, role.id ] }, {}, { :class => 'span3 controls controls-row form-control' } %> -->
 
   <div class="form-group row">
     <%= f.label :password, 'Šifra', :class => "col-xs-3 col-form-label" %>
     <div class="col-xs-9">
-      <%= f.password_field :password, :class => "form-control" %>
+      <%= f.password_field :password, :class => 'span3 controls controls-row form-control' %>
     </div>
   </div>
   

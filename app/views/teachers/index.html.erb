@@ -26,9 +26,9 @@
         <td><%= teacher.position %></td>
         <td><%= teacher.election_date %></td>
         <td><%= teacher.election_period %></td>
-        <td><%= link_to 'Show', teacher %></td>
-        <td><%= link_to 'Edit', edit_teacher_path(teacher) %></td>
-        <td><%= link_to 'Destroy', teacher, method: :delete, data: { confirm: 'Da li ste sigurni?' } %></td>
+        <!--<td><= link_to 'Show', teacher %></td> -->
+        <td><%= link_to 'Uredi', edit_teacher_path(teacher) %></td>
+        <td><%= link_to 'Obriši', teacher, method: :delete, data: { confirm: 'Da li ste sigurni?' } %></td>
       </tr>
     <% end %>
   </tbody>

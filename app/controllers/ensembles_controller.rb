@@ -85,6 +85,19 @@ class EnsemblesController < ApplicationController
     end
   end
 
+  def homePage
+    
+    @end_teachers = Teacher.where("election_date_end <= ?", Date.today + 7.month)
+    @academic_year = AcademicYear.find(AcademicYear.get_current_academic_year)
+    if @academic_year.status == 0
+      @status = "Nastavni ansambl je u procesu kreiranja."
+    elsif @academic_year.status == 1
+      @status = "Kreirana je preliminarna verzija nastavnog ansambla."
+    else
+      @status = "Nastavni ansambl je usvojen."
+    end
+  end
+
 
   def create_record
     status = false
@@ -161,24 +174,11 @@ class EnsemblesController < ApplicationController
 
     @ensembles = Ensemble.where(academic_year: academic_year_id).group_by(&:subject)
     set_document_rendering(true)
-
-
-=begin
-     respond_to do |format|
-        format.html
-        format.pdf do
-          subjects = @ensembles.uniq.pluck(:subject_id)
-          pdf = ReportPdf.new(@ensembles, academic_year, subjects) 
-          send_data pdf.render, filename: 'report.pdf', type: 'application/pdf'
-        end
-      end
-=end
   end
 
   #Dokument - Rješenje o radnim zadacim nastavnika
   def teacherTasks 
     @teachers = Teacher.all
-
     #@teachers.each do |teacher|
 
     teacher = @teachers.first
@@ -191,15 +191,11 @@ class EnsemblesController < ApplicationController
           render :layout => "print_out"
         end
       }
-    end
-
-     
+    end 
     #end
 
   end
 
-  def statistics
-  end
 
   #Statistika - Izvještaj o nepokrivenim predmetima
   def uncoveredSubjects
@@ -207,6 +203,61 @@ class EnsemblesController < ApplicationController
     @uncoveredSubjects = Subject.where("id NOT IN (?)", @covered_subjects)
     @academic_year = AcademicYear.find (AcademicYear.get_current_academic_year)
     set_document_rendering(true)
+  end
+
+  #Statistika - Izvještaj o normama nastavnika
+  def teachersNorm
+    @teachers = Teacher.all
+
+    professor_norm = Constant.professor_norm[:lectures]
+    assistent_norm = Constant.assistent_norm[:tutorials]
+    academic_year = AcademicYear.get_current_academic_year
+
+    @more_l = []
+    @less_l = []
+    @optimal_l = []
+
+    @more_e = []
+    @less_e = []
+    @optimal_e = []
+
+    @teachers.each do |teacher|
+
+      count_hours_l = 0
+      count_hours_e = 0
+      @ensembles = Ensemble.where(teacher_id: teacher.id, academic_year: academic_year)
+
+      @ensembles.each do |item|
+        subject = Subject.find(item.subject_id)
+        if item.subject_role.name == "Nastavnik" 
+          count_hours_l += subject.number_of_lectures
+        else
+          count_hours_e += subject.number_of_tutorials + subject.number_of_exercises + subject.number_of_special_activities
+        end
+      end
+
+      if count_hours_l != 0
+        if count_hours_l > professor_norm[1]
+          @more_l << {teacher: Teacher.find(teacher.id), counter: count_hours_l}
+        elsif count_hours_l > professor_norm[0] && count_hours_l < professor_norm[1]
+          @optimal_l << {teacher: Teacher.find(teacher.id), counter: count_hours_l}
+        else
+          @less_l << {teacher: Teacher.find(teacher.id), counter: count_hours_l}
+        end
+      end
+
+      if count_hours_e != 0
+        if count_hours_e > assistent_norm
+          @more_e << {teacher: Teacher.find(teacher.id), counter: count_hours_e}
+        elsif count_hours_e == assistent_norm
+          @optimal_e << {teacher: Teacher.find(teacher.id), counter: count_hours_e}
+        else
+          @less_e << {teacher: Teacher.find(teacher.id), counter: count_hours_e}
+        end
+      end
+          
+    end
+    
   end
 
   def getCurrentEnsemble

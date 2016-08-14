@@ -1,0 +1,48 @@
+<span id="notice"><%= notice %></span>
+
+<h4>Povezivanje uloge sa privilegijom</h4>
+<br>
+
+<br><br>
+
+<%= form_for(role_privilege) do |f| %>
+  <% if role_privilege.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(role_privilege.errors.count, "error") %> prohibited this role_privilege from being saved:</h2>
+
+      <ul>
+      <% role_privilege.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="row">
+    <div class="col-md-6">
+      <div class="field row">
+        <%= f.label :privilege_id, 'Privilegija u sistemu', :class => "col-xs-3 col-form-label" %>
+        <div class="col-xs-9">
+          <%= f.collection_select :privilege_id, @privileges, :id, :name, {}, { :class => 'span3 controls controls-row form-control'} %>
+        </div>
+      </div>
+
+  <div class="field row">
+      <%= f.label :role_id, 'Uloga u sistemu', :class => "col-xs-3 col-form-label" %>
+      <div class="col-xs-9">
+        <%= f.collection_select :role_id, @roles, :id, :name, {}, { :class => 'span3 controls controls-row form-control'} %>
+      </div>
+    </div>
+
+
+  <div class="actions row">
+    <div class="col-xs-3 col-form-label"></div>
+    <div class="col-xs-9">
+      <%= f.submit 'Poveži', :class => 'btn btn-primary' %> 
+    </div>
+    </div>
+  </div>
+
+  <div class="col-md-6">
+  </div>
+<% end %>

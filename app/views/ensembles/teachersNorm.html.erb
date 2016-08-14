@@ -1,0 +1,114 @@
+<head>
+
+</head>
+<br>
+<h4>Izvještaj o normama nastavnika</h4>
+<br>
+
+<div class="row">
+	<div class="col-md-6">
+		<table class="table">
+			
+		<tr>
+			<td><b>Veći</b> broj časova od 90 sati</td>
+			<td>
+				<% @more_l.each do |item| %>
+					<%= item[:teacher].first_name %> <%= item[:teacher].last_name %><br>
+				<%end%>
+			</td>
+			<td>
+				<% @more_l.each do |item| %>
+					<%= item[:counter] %><br>
+				<%end%>
+			</td>
+		</tr>
+
+		<tr>
+			<td><b>Manji</b> broj časova od 60 sati</td>
+			<td>
+				<% @less_l.each do |item| %>
+					<%= item[:teacher].first_name %> <%= item[:teacher].last_name %><br>
+				<%end%>
+			</td>
+			<td>
+				<% @less_l.each do |item| %>
+					<%= item[:counter] %><br>
+				<%end%>
+			</td>
+		</tr>
+
+		<tr>
+			<td><b>Optimalan</b> broj časova [60, 90]</td>
+			<td>
+				<% @optimal_l.each do |item| %>
+					<%= item[:teacher].first_name %> <%= item[:teacher].last_name %><br>
+				<%end%>
+			</td>
+			<td>
+				<% @optimal_l.each do |item| %>
+					<%= item[:counter] %><br>
+				<%end%>
+			</td>
+		</tr>
+		</table>
+	</div>
+	<div class="col-md-6">
+	</div>
+</div>
+
+<br>
+<br>
+<h4>Izvještaj o normama asistenata</h4>
+<br>
+
+<div class="row">
+	<div class="col-md-6">
+		<table class="table">
+			
+		<tr>
+			<td><b>Veći</b> broj časova od 180 sati</td>
+			<td>
+				<% @more_e.each do |item| %>
+					<%= item[:teacher].first_name %> <%= item[:teacher].last_name %><br>
+				<%end%>
+			</td>
+			<td>
+				<% @more_e.each do |item| %>
+					<%= item[:counter] %><br>
+				<%end%>
+			</td>
+		</tr>
+
+		<tr>
+			<td><b>Manji</b> broj časova od 180 sati</td>
+			<td>
+				<% @less_e.each do |item| %>
+					<%= item[:teacher].first_name %> <%= item[:teacher].last_name %><br>
+				<%end%>
+			</td>
+			<td>
+				<% @less_e.each do |item| %>
+					<%= item[:counter] %><br>
+				<%end%>
+			</td>
+		</tr>
+
+		<tr>
+			<td><b>Optimalan</b> broj časova</td>
+			<td>
+				<% @optimal_e.each do |item| %>
+					<%= item[:teacher].first_name %> <%= item[:teacher].last_name %><br>
+				<%end%>
+			</td>
+			<td>
+				<% @optimal_e.each do |item| %>
+					<%= item[:counter] %><br>
+				<%end%>
+			</td>
+		</tr>
+		</table>
+	</div>
+	<div class="col-md-6"></div>
+	<br><br>
+
+</div>

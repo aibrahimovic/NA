@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Role:</strong>
+  <%= @role_privilege.role_id %>
+</p>
+
+<p>
+  <strong>Privilege:</strong>
+  <%= @role_privilege.privilege_id %>
+</p>
+
+<%= link_to 'Edit', edit_role_privilege_path(@role_privilege) %> |
+<%= link_to 'Back', role_privileges_path %>

@@ -27,6 +27,7 @@ class TeachersController < ApplicationController
   def create
     @teacher = Teacher.new(teacher_params)
 
+    @teacher.election_date_end = @teacher.election_date + @teacher.election_period.year
     respond_to do |format|
       if @teacher.save
         format.html { redirect_to teachers_url, notice: 'Nastavnik je uspješno kreiran.' }
@@ -56,6 +57,8 @@ class TeachersController < ApplicationController
   # DELETE /teachers/1.json
   def destroy
     @teacher.destroy
+    ensemble = Ensemble.where(teacher_id: @teacher.id).all
+    ensemble.destroy_all
     respond_to do |format|
       format.html { redirect_to teachers_url, notice: 'Nastavnik je uspješno obrisan.' }
       format.json { head :no_content }

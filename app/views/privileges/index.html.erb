@@ -1,12 +1,17 @@
-<p id="notice"><%= notice %></p>
+<span id="notice"><%= notice %></span>
 
-<h1>Privileges</h1>
+<h4>Privilegije</h4>
+<br>
+<%= button_to 'Poveži privilegiju i ulogu', new_role_privilege_path, class: 'btn btn-primary', :method => :get %>
+<%= button_to 'Kreiraj novu privilegiju', new_privilege_path, class: 'btn btn-default', :method => :get %>
+<%= button_to 'Sve veze', role_privileges_path, class: 'btn btn-default', :method => :get %>
 
-<table>
+<br><br>
+<table class="table">
   <thead>
     <tr>
       <th>Name</th>
-      <th>Role</th>
+      <th></th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -15,10 +20,9 @@
     <% @privileges.each do |privilege| %>
       <tr>
         <td><%= privilege.name %></td>
-        <td><%= privilege.role_id %></td>
-        <td><%= link_to 'Show', privilege %></td>
-        <td><%= link_to 'Edit', edit_privilege_path(privilege) %></td>
-        <td><%= link_to 'Destroy', privilege, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <!--<td><= privilege.role_id %></td> -->
+        <td><%= link_to 'Uredi', edit_privilege_path(privilege) %></td>
+        <td><%= link_to 'Obriši', privilege, method: :delete, data: { confirm: 'Da li ste sigruni?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -26,4 +30,3 @@
 
 <br>
 
-<%= link_to 'New Privilege', new_privilege_path %>

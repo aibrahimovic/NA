@@ -1,3 +1,9 @@
+<span id="notice"><%= notice %></span>
+
+<h4>Nova privilegija</h4>
+<br>
+
+<br><br>
 <%= form_for(privilege) do |f| %>
   <% if privilege.errors.any? %>
     <div id="error_explanation">
@@ -11,17 +17,27 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :name %>
-    <%= f.text_field :name %>
+
+  <div class="row">
+    <div class="col-md-6">
+
+      <div class="form-group row">
+     
+        <%= f.label :name, 'Naziv', :class => "col-xs-3 col-form-label"%>
+        <div class="col-xs-9">
+          <%= f.text_field :name, :class => "form-control"%>
+        </div>
+      </div>
+
+      <div class="actions row">
+        <div class="col-xs-3 col-form-label"></div>
+        <div class="col-xs-9">
+          <%= f.submit 'Kreiraj privilegiju', :class => 'btn btn-primary' %> 
+        </div>
+      </div>
+      </div>
+
+  <div class="col-md-6">
   </div>
 
-  <div class="field">
-    <%= f.label :role_id %>
-    <%= f.number_field :role_id %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit %>
-  </div>
 <% end %>

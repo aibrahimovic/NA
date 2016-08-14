@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :role_privileges
   #get 'sessions/new'
 
   get    '/login',   to: 'sessions#new'
@@ -32,6 +33,8 @@ Rails.application.routes.draw do
     get "statistics", on: :collection
     get "uncoveredSubjects", on: :collection
     get "teacherTasks", on: :collection
+    get "homePage", on: :collection
+    get "teachersNorm", on: :collection
   end
 
   resources :departments

@@ -2,7 +2,7 @@
 
 <h4>Uloge u sistemu</h4>
 <br>
-<%= button_to 'Kreiraj novu ulogu', new_user_path, class: 'btn btn-default', :method => :get %>
+<%= button_to 'Kreiraj novu ulogu', new_role_path, class: 'btn btn-default', :method => :get %>
 <br><br>
 <table class="table">
   <thead>
@@ -16,7 +16,7 @@
     <% @roles.each do |role| %>
       <tr>
         <td><%= role.name %></td>
-        <td><%= link_to 'Izmijeni', edit_role_path(role) %></td>
+        <td><%= link_to 'Uredi', edit_role_path(role) %></td>
         <td><%= link_to 'Obriši', role, method: :delete, data: { confirm: 'Da li ste sigurni?' } %></td>
       </tr>
     <% end %>

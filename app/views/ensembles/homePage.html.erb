@@ -1,0 +1,30 @@
+<h4>Trenutna akademska godina: <%= @academic_year.name %></h4>
+<h4> Status nastavnog ansambla: <%= @status %></h4>
+
+<% if @end_teachers != [] %>
+	<h4>Nastavnici kojima uskoro ističe izborni period</h4>
+	<br>
+	<div class="row">
+	<div class="col-md-4">
+	<table class="table">
+	  <thead>
+	    <tr>
+	      <th>Ime i prezime</th>
+	      <th>Kraj izbornog perioda</th>
+	    </tr>
+	  </thead>
+
+	  <tbody>
+	    <% @end_teachers.each do |teacher| %>
+	      <tr>
+	        <td><%= teacher.first_name %> <%= teacher.last_name %></td>
+	        <% period_end = teacher.election_date_end.to_date.strftime("%d/%m/%y") %>
+	        <td><%= period_end %></td>
+	      </tr>
+	    <% end %>
+	  </tbody>
+	</table>
+	</div>
+	<div class="col-md-8"></div>
+	</div>
+<% end %>

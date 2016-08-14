@@ -76,6 +76,8 @@ class SubjectsController < ApplicationController
   # DELETE /subjects/1.json
   def destroy
     @subject.destroy
+    ensemble = Ensemble.where(subject_id: @subject.id).all
+    ensemble.destroy_all
     respond_to do |format|
       format.html { redirect_to subjects_url, notice: 'Predmet je uspješno obrisan.' }
       format.json { head :no_content }

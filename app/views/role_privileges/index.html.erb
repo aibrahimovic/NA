@@ -1,0 +1,33 @@
+<span id="notice"><%= notice %></span>
+
+<h4>Privilegije</h4>
+<br>
+<%= button_to 'Poveži privilegiju i ulogu', new_role_privilege_path, class: 'btn btn-primary', :method => :get %>
+<%= button_to 'Kreiraj novu privilegiju', new_privilege_path, class: 'btn btn-default', :method => :get %>
+<%= button_to 'Sve privilegije', privileges_path, class: 'btn btn-default', :method => :get %>
+
+<br><br>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Uloga</th>
+      <th>Privilegija</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @role_privileges.each do |role_privilege| %>
+      <tr>
+        <td><%= role_privilege.role.name %></td>
+        <td><%= role_privilege.privilege.name %></td>
+        <td><%= link_to 'Uredi', edit_role_privilege_path(role_privilege) %></td>
+        <td><%= link_to 'Obriši', role_privilege, method: :delete, data: { confirm: 'Da li ste sigurni?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+

@@ -8,7 +8,7 @@ class SessionsController < ApplicationController
 	    respond_to do |format|
 	      if user && user.authenticate(params[:session][:password])
 	      	log_in user
-	        format.html { redirect_to new_ensemble_path }
+	        format.html { redirect_to homePage_ensembles_path }
 	      else
 	        format.html { redirect_to root_url, notice: 'Korisničko ime ili šifra nisu ispravni.' }
 	      end

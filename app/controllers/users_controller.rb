@@ -19,10 +19,12 @@ class UsersController < ApplicationController
   def new
     @user = User.new
     @roles = Role.all
+    
   end
 
   # GET /users/1/edit
   def edit
+    @roles = Role.all
   end
 
   # POST /users
@@ -30,9 +32,13 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
 
+    role = params[:user][:role]
+    
     respond_to do |format|
       if @user.save
-        format.html { redirect_to users_url, notice: 'User was successfully created.' }
+        UserRole.create(user_id: @user.id, role_id: role)
+        
+        format.html { redirect_to users_url, notice: 'Korisnik je uspješno kreiran.' }
         format.json { render :show, status: :created, location: @user }
       else
         format.html { render :new }
@@ -44,9 +50,11 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json
   def update
+    role = params[:user][:role]
     respond_to do |format|
       if @user.update(user_params)
-        format.html { redirect_to @user, notice: 'Korisnik je uspješno izmjenjen.' }
+        UserRole.create(user_id: @user.id, role_id: role)
+        format.html { redirect_to users_url, notice: 'Korisnik je uspješno izmjenjen.' }
         format.json { render :show, status: :ok, location: @user }
       else
         format.html { render :edit }
@@ -73,6 +81,6 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:first_name, :last_name, :username, :email, :password, :password_confirmation, :user_role)
+      params.require(:user).permit(:first_name, :last_name, :username, :email, :password, :password_confirmation)
     end
 end
