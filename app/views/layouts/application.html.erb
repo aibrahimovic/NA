@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Master</title>
+    <title>Nastavni ansambl</title>
     <%= csrf_meta_tags %>
     <%= stylesheet_link_tag    'application', media: 'all',
                                               'data-turbolinks-track': 'reload' %>
@@ -26,6 +26,7 @@
     <br>
 
   <% if document_rendering? %>
+      
       <div class="row">
         <div class="col-md-1"></div>
         <div class="col-md-10">
@@ -38,19 +39,20 @@
   <% else %>
 
 
-
+<div class="container">
 	<div class="row">
 
   <% if logged_in? %>
- 
+
+  <% if @
   
 	  <div class="sidebar col-md-2">
 	  	<nav>
 	  		<%= link_to "Nastavni ansambl", new_ensemble_path, :class => "sidebar_item" %><br>
 	        <%= link_to "Nastavnici",   teachers_path, :class => "sidebar_item" %><br>
 	        <%= link_to "Predmeti",   subjects_path, :class => "sidebar_item" %><br>
-	        <%= link_to "Generisanje dokumenata", documents_ensembles_path, :class => "sidebar_item"%><br>
-          <%= link_to "Izračun projiciranog broja studenata", student_numbers_path, :class => "sidebar_item"%><br>
+	        <%= link_to "Dokumenti", documents_ensembles_path, :class => "sidebar_item"%><br>
+          <%= link_to "Broj studenata", student_numbers_path, :class => "sidebar_item"%><br>
           <br>
           <br>
           <%= link_to "Korisnici",  users_path, :class => "sidebar_item" %><br>
@@ -64,7 +66,7 @@
 	  </div>
 
 
-	  <div class="col-md-10">
+	  <div class="col-md-10 border_left">
 	  	<div class="row">
 	  		<div class="col-md-10"></div>
   	  		<div class="user_info col-md-2">
@@ -83,7 +85,7 @@
 	  	</div>
 	  </div>
 	</div>
-
+</div>
   
 	<%else%>
 
