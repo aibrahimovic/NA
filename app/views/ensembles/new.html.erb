@@ -1,10 +1,14 @@
+<span id="notice"><%= notice %></span>
 
+<h4>Nastavni ansambl</h4>
 <br>
-<span id="notice" style="margin-left:0px;"><%= notice %></span>
+<% if @status == 1 %>
+	<%= button_to 'Spasi preliminarnu verziju', saveFirstVersion_ensembles_path, class: 'btn btn-default', :id => 'ensemble_first_version2', :method => :get, :disabled => true %>
+	<%= button_to 'Spasi finalnu verziju', saveFinalVersion_ensembles_path, class: 'btn btn-primary', :id => 'ensemble_first_version2', :method => :get%>
+<% else %>
+	<%= button_to 'Spasi preliminarnu verziju', saveFirstVersion_ensembles_path, class: 'btn btn-default', :id => 'ensemble_first_version2', :method => :get%>
+<% end %>
 
-<div class="row">
-
-<%= button_to 'Spasi preliminarnu verziju', '#', class: 'btn btn-primary', :id => 'ensemble_first_version', :method => :get %>
 <br><br>
 <table class="table">
 <thead>
@@ -26,7 +30,7 @@
 
 	<% if @rows != [] %>
 
-	<tr id="<%= subject.id %>" style="background-color:#F0F8FF">
+	<tr id="<%= subject.id %>" style="background-color:#F0F8FF" data-saved="saved">
 		<td><%= subject.name %></td>
 		<td>
 
@@ -34,44 +38,80 @@
 	
 			<% @rows.each do |row|%>
 
-			<div class="col-md-6">
-				<select class="select_subject_roles form-control" data-subject="<%=subject.id%>">
-					<option disabled selected value></option>
-			    	
-			    	<% @subject_roles.each do |subject_role| %>
-			    		<% if row.subject_role_id == subject_role.id %>
-				        	<option class="roles" value="<%= row.subject_role_id %>" data-id="<%= subject_role.id %>" selected><%= subject_role.name %>
-				        	</option>
-				        <%else%>
-					        <option class="roles" value="<%= row.subject_role_id %>" data-id="<%= subject_role.id %>"><%= subject_role.name %>
-					        </option>
-				        <%end%>
-			    	<% end %>
+				<% row_first = @rows.where(subject_role_id: @lecturer.id).first %>
+				
+				<% if row.id == row_first.id %>
+				<div class="col-md-5">
+					<select disabled class="select_subject_roles form-control" data-subject="<%=subject.id%>">
+						<option disabled selected value></option>
+				    	
+				    	<% @subject_roles.each do |subject_role| %>
+				    		<% if row.subject_role_id == subject_role.id %>
+					        	<option class="roles" value="<%= row.subject_role_id %>" data-id="<%= subject_role.id %>" selected><%= subject_role.name %>
+					        	</option>
+					        <%else%>
+						        <option class="roles" value="<%= row.subject_role_id %>" data-id="<%= subject_role.id %>"><%= subject_role.name %>
+						        </option>
+					        <%end%>
+				    	<% end %>
 
-				</select>
-			</div>
-			<div class="col-md-6">
-				<select class="select_teachers form-control" data-subject="<%=subject.id%>" value="<%= row.teacher_id %>">
-					<option disabled selected value></option>
+					</select>
+				</div>		
 
-			    	<% @teachers.each do |teacher| %>
-			    		<% if row.teacher_id == teacher.id %>
-					        <option class="teachers" value="<%= row.teacher_id %>" data-id="<%= teacher.id %>" selected><%= teacher.first_name + " " + teacher.last_name %>
-					        </option>
-					    <%else%>
-					    	<option class="teachers" value="<%= row.teacher_id %>" data-id="<%= teacher.id %>"><%= teacher.first_name + " " + teacher.last_name %>
-				        	</option>
-				        <%end%>
-			    	<% end %>
-				</select>
-			</div>
-			<br>
+
+				<% else %>
+				<div class="col-md-5">
+					<select class="select_subject_roles form-control" data-subject="<%=subject.id%>">
+						<option disabled selected value></option>
+				    	
+				    	<% @subject_roles.each do |subject_role| %>
+				    		<% if row.subject_role_id == subject_role.id %>
+					        	<option class="roles" value="<%= row.subject_role_id %>" data-id="<%= subject_role.id %>" selected><%= subject_role.name %>
+					        	</option>
+					        <%else%>
+						        <option class="roles" value="<%= row.subject_role_id %>" data-id="<%= subject_role.id %>"><%= subject_role.name %>
+						        </option>
+					        <%end%>
+				    	<% end %>
+
+					</select>
+				</div>
+				<% end %>
+
+
+				<div class="col-md-5">
+					<select class="select_teachers form-control" data-subject="<%=subject.id%>" value="<%= row.teacher_id %>">
+						<option disabled selected value></option>
+
+				    	<% @teachers.each do |teacher| %>
+				    		<% if row.teacher_id == teacher.id %>
+						        <option class="teachers" value="<%= row.teacher_id %>" data-id="<%= teacher.id %>" selected><%= teacher.first_name + " " + teacher.last_name %>
+						        </option>
+						    <%else%>
+						    	<option class="teachers" value="<%= row.teacher_id %>" data-id="<%= teacher.id %>"><%= teacher.first_name + " " + teacher.last_name %>
+					        	</option>
+					        <%end%>
+				    	<% end %>
+					</select>
+				</div>
+				<div class="col-md-1" style="padding: 10px; float:left !important;">
+					<div  class="delete_row" data-subject_id="<%=subject.id%>" data-subject_role_id="<%= row.subject_role_id %>" data-teacher_id="<%= row.teacher_id %>" type="submit">
+					   <%= image_tag "delete.png", height: '10', width: '10', :class => 'delete_row_button' %>
+					</div>
+				</div>
+				<br>
 
 			<%end%>
 		</div>
 
-		<div  class="add_new_role" data-id="<%=subject.id%>" type="submit">
-		   <%= image_tag "new_role3.png", height: '35', width: '35', :class => 'new_role_button' %>
+		<div class="row">
+			<div class="col-md-5"></div>
+			<div class="col-md-5">
+			<div  class="add_new_role" data-id="<%=subject.id%>" type="submit">
+			   <%= image_tag "new_role3.png", height: '35', width: '35', :class => 'new_role_button' %>
+			</div>
+			</div>
+			<div class="col-md-1"></div>
 		</div>
 	
 	</td>
@@ -87,7 +127,7 @@
 	
 	<%else%>
 
-		<tr id="<%= subject.id %>" data-saved="saved" >
+		<tr id="<%= subject.id %>" data-saved="unsaved" >
 		<td><%= subject.name %></td>
 		<td>
 
@@ -95,39 +135,71 @@
 			
 			<% @default_subject_roles.each do |row|%>
 
-			<div class="col-md-6">
-				<select class="select_subject_roles form-control" data-subject="<%=subject.id%>">
-					<option disabled selected value></option>	
-			    	<% @subject_roles.each do |subject_role| %>
-			    		<% if row.id == subject_role.id %>
-				        	<option class="roles" value="<%= row.id %>" data-id="<%= subject_role.id %>" selected><%= subject_role.name %>
-				        	</option>
-				        <%else%>
-					        <option class="roles" value="<%= row.id %>" data-id="<%= subject_role.id %>"><%= subject_role.name %>
-					        </option>
-				        <%end%>
-			    	<% end %>
+				<% if row == @default_subject_roles.first %>
 
-				</select>
-			</div>
-			<div class="col-md-6">
-				<select class="select_teachers form-control" data-subject="<%=subject.id%>">
-					<option disabled selected value></option>
+				<div class="col-md-5">
+					<select disabled class="select_subject_roles form-control" data-subject="<%=subject.id%>">
+						<option disabled selected value></option>	
+				    	<% @subject_roles.each do |subject_role| %>
+				    		<% if row.id == subject_role.id %>
+					        	<option class="roles" value="<%= row.id %>" data-id="<%= subject_role.id %>" selected><%= subject_role.name %>
+					        	</option>
+					        <%else%>
+						        <option class="roles" value="<%= row.id %>" data-id="<%= subject_role.id %>"><%= subject_role.name %>
+						        </option>
+					        <%end%>
+				    	<% end %>
 
-			    	<% @teachers.each do |teacher| %>
-					    <option class="teachers" data-id="<%= teacher.id %>" ><%= teacher.first_name + " " + teacher.last_name %>
-					    </option>
-			    	<% end %>
-				</select>
-			</div>
-			<br>
+					</select>
+				</div>
+				
+
+				<%else%>
+
+				<div class="col-md-5">
+					<select class="select_subject_roles form-control" data-subject="<%=subject.id%>">
+						<option disabled selected value></option>	
+				    	<% @subject_roles.each do |subject_role| %>
+				    		<% if row.id == subject_role.id %>
+					        	<option class="roles" value="<%= row.id %>" data-id="<%= subject_role.id %>" selected><%= subject_role.name %>
+					        	</option>
+					        <%else%>
+						        <option class="roles" value="<%= row.id %>" data-id="<%= subject_role.id %>"><%= subject_role.name %>
+						        </option>
+					        <%end%>
+				    	<% end %>
+
+					</select>
+				</div>
+				
+
+				<%end%>
+
+				<div class="col-md-5">
+					<select class="select_teachers form-control" data-subject="<%=subject.id%>">
+						<option disabled selected value></option>
+
+				    	<% @teachers.each do |teacher| %>
+						    <option class="teachers" data-id="<%= teacher.id %>" ><%= teacher.first_name + " " + teacher.last_name %>
+						    </option>
+				    	<% end %>
+					</select>
+				</div>
+				<div class="col-md-1"></div>
+				<br>
 
 			<%end%>
 		</div>
-		<div  class="add_new_role" data-id="<%=subject.id%>" type="submit">
-		   <%= image_tag "new_role3.png", height: '35', width: '35', :class => 'new_role_button' %>
+
+		<div class="row">
+			<div class="col-md-5"></div>
+			<div class="col-md-5">
+			<div  class="add_new_role" data-id="<%=subject.id%>" type="submit">
+			   <%= image_tag "new_role3.png", height: '35', width: '35', :class => 'new_role_button' %>
+			</div>
+			</div>
+			<div class="col-md-1"></div>
 		</div>
-	
 
 	<br>
 	</td>
@@ -154,15 +226,20 @@
 $(document).ready(function(){
 	list = [];
 	var all_teachers;        	
-
-	console.log($('.ensemble_save_row'));
-
-
 });
+
+$(document).ajaxStart(function(){
+   $("#overlay").show();
+ });
+
+$(document).ajaxComplete(function(){
+   $("#overlay").hide();
+ });
 
 
 $('#ensemble_first_version').click(function() {
 	$('.ensemble_save_row').each(function() {
+
 		$(this).trigger( "click" );
 	});
 });
@@ -170,14 +247,19 @@ $('#ensemble_first_version').click(function() {
 //dodavanje uloge za predmet
 $('.add_new_role').click(function() {
 
+
 	var subject_id = $(this).data('id');
 	console.log(subject_id);
+	var id = '#'+subject_id
+	$(id).data('saved', 'unsaved');
+
+	console.log(id);
 	var cell_class = '#cell_' + subject_id;
 	//var cell_class = '.row';
 	var object;
 
 
-	$(cell_class).append('<div class="col-md-6"></div>');	
+	$(cell_class).append('<div class="col-md-5"></div>');	
 	object = $(cell_class).children().last();
 	$(object).append("<select class='select_subject_roles form-control'></select>");
 	object = $(object).children().last();
@@ -208,7 +290,7 @@ $('.add_new_role').click(function() {
 
 	console.log("Prvi append");
 	console.log($(cell_class));
-	$(cell_class).append('<div class="col-md-6"></div>');	
+	$(cell_class).append('<div class="col-md-5"></div>');	
 	object = $(cell_class).children().last();
 	
 	$(object).append("<select class='select_teachers form-control'>");
@@ -239,6 +321,31 @@ $('.add_new_role').click(function() {
 	
 });
 
+//brisanje jednog reda
+$('.delete_row').click(function() {
+	var subject_id = $(this).data('subject_id');
+	var teacher_id = $(this).data('teacher_id');
+	var subject_role_id = $(this).data('subject_role_id');
+
+	console.log(subject_id, teacher_id, subject_role_id);
+	$.ajax({
+	    url: '/ensembles/delete_record',
+	        data: { 
+	       	subject_id: subject_id,
+	       	teacher_id: teacher_id,
+	       	subject_role_id: subject_role_id
+        },
+        type: 'DELETE',
+        success: function(result) {
+        if (result.status) {
+        	$(id).css("background-color","#F0F8FF");
+        	$(id).data('saved', 'saved');
+	    }
+	   }     
+	});
+
+});
+
 function find_subject_data(list, subject_id) {
 	filtered_list = []
 	for (i=0; i<list.length; i++) {
@@ -252,22 +359,37 @@ function find_subject_data(list, subject_id) {
 
 //spšavanje jednog reda
 $('.ensemble_save_row').click(function() {
+
+    /*var overlayDisplayed = $("#overlay").is(":visible");
+    if(!overlayDisplayed){
+        $('.table').animate({width: '100%'}, 500, function() { });
+    }
+	if(!overlayDisplayed){
+	    $('.table').animate({width: '100%'}, 500);
+	    //callpage();
+	}
+	
+	$("#modal-overlay").show();*/
+
 	var subject_id = $(this).data('id');
-	console.log(subject_id);
 	var cell_class = '#cell_' + subject_id;
 
-	var object = $(cell_class).children(".col-md-6");
-	console.log("Djeca od diva");
-	console.log($(object).children(".select_teachers, .select_subject_roles"));
-
+	var object = $(cell_class).children();
+	
 	var items = [];
+	var main_teacher; 
 	$(object).children(".select_teachers, .select_subject_roles").each(function () {    
 		var row_item = $(this).children(":selected").data('id');
+		text=$(this).children(":selected").text();
+		text=$.trim(text);
+		if (text == "Nastavnik") main_teacher = row_item;
 	    items.push(row_item);
+
 	});
 
-	console.log("Itemi: ");
-	console.log(items);
+	console.log(main_teacher);
+	//console.log("Itemi: ");
+	//console.log(items);
 
 	for (i=0; i<items.length; i=i+2) {
 		var subject_role_id = items[i];
@@ -275,7 +397,7 @@ $('.ensemble_save_row').click(function() {
 
 		if (subject_role_id != undefined && teacher_id != undefined) {
 			list.push({subject_id: subject_id, subject_role_id: subject_role_id, teacher_id: teacher_id});
-			console.log(list);
+			//console.log(list);
 		}
 		else if (subject_role_id == undefined)
 			alert("Potrebno je selektovati ulogu nastavnika.");
@@ -296,6 +418,8 @@ $('.ensemble_save_row').click(function() {
         if (result.status) {
         	$(id).css("background-color","#F0F8FF");
         	$(id).data('saved', 'saved');
+			//$("#modal-overlay").hide();
+        
 	    }
 	   }     
 	});

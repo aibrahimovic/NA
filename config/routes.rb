@@ -18,7 +18,9 @@ Rails.application.routes.draw do
   resources :privileges
   resources :user_roles
   resources :roles
-  resources :users
+  resources :users do 
+    get "passwordChange", on: :collection
+  end
   resources :student_numbers do 
     get "predictStudentNumber", on: :collection
     get "updateStudentNumber", on: :collection
@@ -35,6 +37,9 @@ Rails.application.routes.draw do
     get "teacherTasks", on: :collection
     get "homePage", on: :collection
     get "teachersNorm", on: :collection
+    delete "delete_record", on: :collection
+    get "saveFirstVersion", on: :collection
+    get "saveFinalVersion", on: :collection
   end
 
   resources :departments

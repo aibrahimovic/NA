@@ -16,8 +16,9 @@
   <body>
     <header class="navbar navbar-fixed-top navbar-inverse">
       <div class="container">
-      	<%= image_tag("etf-50x50.png", :alt => "etf_image") %>
-        <%= link_to "Home", homePage_ensembles_path, method: "get" %>
+        <%= link_to homePage_ensembles_path do %>
+          <%= image_tag("etf-50x50.png", :alt => "etf_image") %>
+        <% end %>
         <% id = AcademicYear.get_current_academic_year %>
         <!-- <span style:"float: right; text-align:right;"> Aktualna akademska godina: <= AcademicYear.find(id).name %> -->
       </div>
@@ -70,7 +71,7 @@
   	  			<%= image_tag("user.png", :alt => "user_image") %>
   	  			<%= @current_user.first_name %> <%= @current_user.last_name %> <br>
             <%= link_to "Odjava", logout_path, method: "delete", :style => "float: right; text-align: right;" %>
-            <%= link_to "Promjena šifre  *", logout_path, method: "delete", :style => "float: right; text-align: right;  padding-right: 5px;" %>
+            <%= link_to "Promjena šifre  *", passwordChange_users_path, method: "get", :style => "float: right; text-align: right;  padding-right: 5px;" %>
             
   	  		</div>
 	  	  </div>

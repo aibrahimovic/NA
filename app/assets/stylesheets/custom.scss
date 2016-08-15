@@ -97,6 +97,17 @@ user_info.link_to_logout {
   }
 }
 
+#modal-overlay {
+    position: fixed;
+    z-index: 10;
+    background: black;
+    display: block;
+    opacity: .75;
+    filter: alpha(opacity=75);
+    width: 100%;
+    height: 100%;
+}
+
 
 .navbar-default {
   background-color: #bbbbff;

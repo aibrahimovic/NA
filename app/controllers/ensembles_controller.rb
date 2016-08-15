@@ -30,14 +30,18 @@ class EnsemblesController < ApplicationController
 
   # GET /ensembles/new
   def new
-    academic_year = AcademicYear.get_current_academic_year
-    @ensembles = Ensemble.where(academic_year: academic_year)
+    academic_year_id = AcademicYear.get_current_academic_year
+    academic_year = AcademicYear.find(academic_year_id)
+    @ensembles = Ensemble.where(academic_year: academic_year_id)
 
-    @subjects = Subject.all.limit(10)
+    @subjects = Subject.all
     @teachers = Teacher.all
 
     @default_subject_roles = SubjectRole.first(2)
     @subject_roles = SubjectRole.all
+
+    @lecturer = SubjectRole.find_by(name: "Nastavnik")
+    @status = academic_year.status
 
   end
 
@@ -159,6 +163,72 @@ class EnsemblesController < ApplicationController
 
     end 
     
+
+  end
+
+  def delete_record 
+    subject_id = params[:subject_id]
+    teacher_id = params[:teacher_id]
+    subject_role_id = params[:subject_role_id]
+
+    academic_year = AcademicYear.get_current_academic_year
+
+    ensemble_item = Ensemble.where(academic_year_id: academic_year, subject_id: subject_id, teacher_id: teacher_id, subject_role_id: subject_role_id)
+    teacher = Teacher.find(teacher_id)
+    teacher = teacher.first_name + " " + teacher.last_name
+    subject = Subject.find(subject_id).name
+    ensemble_item.destroy_all
+    respond_to do |format|
+      format.html { redirect_to new_ensemble_path, notice: 'Nastavnik '+ teacher +' je obrisan/a sa predmeta '+subject}
+      format.json { head :no_content }
+    end
+
+  end
+
+  def saveFirstVersion
+    a_year = AcademicYear.get_current_academic_year
+    @covered_subjects = Ensemble.where(academic_year_id: a_year).uniq.pluck(:subject_id)
+    
+    #@uncovered_subjects = Subject.where("id NOT IN (?)", @covered_subjects)
+
+    subjects_test = Subject.all.limit(17)
+    @uncovered_subjects = subjects_test.where("id NOT IN (?)", @covered_subjects)
+
+    respond_to do |format|
+      if @uncovered_subjects.nil? || @uncovered_subjects == []
+        current_year = AcademicYear.find(a_year) 
+        current_year.status = 1
+        current_year.save
+        format.html { redirect_to new_ensemble_path, notice: 'Preliminarna verzija je poslana'}
+        format.json { head :no_content }
+      else
+        format.html { redirect_to new_ensemble_path, notice: 'Da biste poslali preliminarnu verziju potrebno je spasiti sve predmete.'}
+        format.json { head :no_content }
+      end
+    end
+  end
+
+  def saveFinalVersion
+    a_year = AcademicYear.get_current_academic_year
+    @covered_subjects = Ensemble.where(academic_year_id: a_year).uniq.pluck(:subject_id)
+    
+    #@uncovered_subjects = Subject.where("id NOT IN (?)", @covered_subjects)
+
+    subjects_test = Subject.all.limit(17)
+    @uncovered_subjects = subjects_test.where("id NOT IN (?)", @covered_subjects)
+
+    respond_to do |format|
+      if @uncovered_subjects.nil? || @uncovered_subjects == []
+        current_year = AcademicYear.find(a_year) 
+        current_year.status = 2
+        current_year.save
+        format.html { redirect_to new_ensemble_path, notice: 'Finalna verzija je spašena'}
+        format.json { head :no_content }
+      else
+        format.html { redirect_to new_ensemble_path, notice: 'Da biste poslali preliminarnu verziju potrebno je spasiti sve predmete.'}
+        format.json { head :no_content }
+      end
+    end
 
   end
 
