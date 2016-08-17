@@ -6,23 +6,42 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+#User.create("first_name"=>"Azra", "last_name"=>"Ibrahimović", "email"=>"aibrahimov3@etf.unsa.ba", "username" => "admin", "password_digest"=>"admin")
+
+#User.create("first_name"=>"Azra", "last_name"=>"Ibrahimović", "email"=>"aibrahimov3@etf.unsa.ba", "username" => "admin2", "password"=>"admin", "password_confirmation" => "admin")
 =begin
-AcademicYear.create({"name"=>"2000/2001", status=2})
-AcademicYear.create({"name"=>"2001/2002", status=2})
-AcademicYear.create({"name"=>"2002/2003", status=2})
-AcademicYear.create({"name"=>"2003/2004", status=2})
-AcademicYear.create({"name"=>"2004/2005", status=2})
-AcademicYear.create({"name"=>"2005/2006", status=2})
-AcademicYear.create({"name"=>"2006/2007", status=2})
-AcademicYear.create({"name"=>"2007/2008", status=2})
-AcademicYear.create({"name"=>"2008/2009", status=2})
-AcademicYear.create({"name"=>"2009/2010", status=2})	
-AcademicYear.create({"name"=>"2010/2011", status=2})	
-AcademicYear.create({"name"=>"2011/2012", status=2})	
-AcademicYear.create({"name"=>"2012/2013", status=2})	
-AcademicYear.create({"name"=>"2013/2014", status=2})	
-AcademicYear.create({"name"=>"2014/2015", status=2})	
-AcademicYear.create({"name"=>"2015/2016", status=2})	
+Department.create(name:"RI")
+Department.create(name:"EE")
+Department.create(name:"AiE")
+Department.create(name:"TK")
+=end
+
+
+=begin
+SubjectRole.create(name: "Redovni profesor")
+SubjectRole.create(name: "Vanredni profesor")
+SubjectRole.create(name: "Docent")
+SubjectRole.create(name: "Asistent")
+SubjectRole.create(name: "Stručnjak iz prakse")
+=end
+ 
+=begin
+AcademicYear.create("name"=>"2000/2001", "status"=>2)
+AcademicYear.create("name"=>"2001/2002", "status"=>2)
+AcademicYear.create("name"=>"2002/2003", "status"=>2)
+AcademicYear.create("name"=>"2003/2004", "status"=>2)
+AcademicYear.create("name"=>"2004/2005", "status"=>2)
+AcademicYear.create("name"=>"2005/2006", "status"=>2)
+AcademicYear.create("name"=>"2006/2007", "status"=>2)
+AcademicYear.create("name"=>"2007/2008", "status"=>2)
+AcademicYear.create("name"=>"2008/2009", "status"=>2)
+AcademicYear.create("name"=>"2009/2010", "status"=>2)
+AcademicYear.create("name"=>"2010/2011", "status"=>2)
+AcademicYear.create("name"=>"2011/2012", "status"=>2)
+AcademicYear.create("name"=>"2012/2013", "status"=>2)
+AcademicYear.create("name"=>"2013/2014", "status"=>2)
+AcademicYear.create("name"=>"2014/2015", "status"=>2)
+AcademicYear.create("name"=>"2015/2016", "status"=>2)
 =end
 
 =begin StudentNumber table
@@ -40,7 +59,7 @@ for i in 1...10
 		end
 	end
 end
-=end
+end
 
 =begin roles, privileges and role_privileges
 

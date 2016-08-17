@@ -10,6 +10,7 @@
       <th>Prezime</th>
       <th>Titula</th>
       <th>Pozicija</th>
+      <th>Odsjek</th>
       <th>Datum izbora</th>
       <th>Izborni period</th>
       <th colspan="3"></th>
@@ -23,6 +24,7 @@
         <td><%= teacher.last_name %></td>
         <td><%= teacher.title %></td>
         <td><%= teacher.position %></td>
+        <td><%= teacher.department.name %></td> 
         <td><%= teacher.election_date %></td>
         <td><%= teacher.election_period %></td>
         <!--<td><= link_to 'Show', teacher %></td> -->

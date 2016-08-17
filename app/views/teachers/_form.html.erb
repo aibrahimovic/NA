@@ -37,6 +37,13 @@
       </div>
     </div>
 
+    <div class="form-group row">
+      <%= f.label :pozicija, :class => "col-xs-3 col-form-label" %>
+      <div class="col-xs-9">
+        <%= f.text_field :position, :class => "form-control"%>
+      </div>
+    </div>
+
     <div class="field row">
       <%= f.label :election_date, :class => "col-xs-3 col-form-label" %>
       <div class="col-xs-9">
@@ -49,6 +56,15 @@
       <div class="col-xs-9">
         <%= f.number_field :election_period, :class => "form-control" %>
       </div>
+    </div>
+
+    <div class="field row">
+    <%= f.label :odsjek, :class => "col-xs-3 col-form-label" %>
+    <div class="col-xs-9">
+      <%= f.select :department_id, 
+      options_for_select([['RI','1'],['AiE','2'],['EE','3'],['TK','4']], params[:department_id]),
+      {}, { :class => 'span3 controls controls-row form-control' } %>
+    </div>
     </div>
 
     <div class="actions row">
