@@ -248,6 +248,15 @@ class EnsemblesController < ApplicationController
 
   #Dokument - Rješenje o radnim zadacim nastavnika
   def teacherTasks 
+    @teacher = Teacher.first
+    a_year = AcademicYear.get_current_academic_year
+
+    @teachers_subject_ids = Ensemble.where(teacher_id: @teacher.id, academic_year_id: a_year).uniq.pluck(:subject_id)
+
+    @teachers_subjects = Subject.where("id IN (?)", @teachers_subject_ids)
+    
+    
+=begin
     @teachers = Teacher.all
     #@teachers.each do |teacher|
 
@@ -263,7 +272,7 @@ class EnsemblesController < ApplicationController
       }
     end 
     #end
-
+=end
   end
 
 

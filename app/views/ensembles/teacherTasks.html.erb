@@ -1,2 +1,14 @@
 
-<p>Test
+<h4>Rješenje o radnim zadacima nastavnika</h4>
+<span>Ime i prezime: <%= @teacher.first_name %> <%= @teacher.first_name %> </span><br>
+<span>Titula: <%= @teacher.title %></span><br>
+<span>Pozicija: <%= @teacher.position %></span><br>
+<span>Odsjek: <%= @teacher.department.name %></span><br> 
+<span>Datum izbora: <%= @teacher.election_date.to_date %></span><br>
+<span>Izborni period: <%= @teacher.election_period %></span><br>
+
+<br>
+<h5>Predmeti na kojima je angažovan nastavnik</h5>
+<% @teachers_subjects.each do |subject| %>
+	<span> <%= subject.name %><br>
+<% end %>
