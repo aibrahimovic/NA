@@ -57,11 +57,12 @@
           <%= link_to "Korisnici",  users_path, :class => "sidebar_item" %><br>
           <%= link_to "Uloge",  roles_path, :class => "sidebar_item" %><br>
           <%= link_to "Privilegije",  role_privileges_path, :class => "sidebar_item" %><br>
+          <%= link_to "Akademske godine",  academic_years_path, :class => "sidebar_item" %><br>
 	    </nav>
       <br>
       <br>
 
-    ` <%= button_to 'Nova akademska godina', startNewAcademicYear_academic_years_path, class: 'btn btn-default', :method => :get %>
+     <%= button_to 'Nova akademska godina', startNewAcademicYear_academic_years_path, class: 'btn btn-default', :method => :get %>
 	  </div>
 
 

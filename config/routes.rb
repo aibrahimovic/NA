@@ -40,6 +40,7 @@ Rails.application.routes.draw do
     delete "delete_record", on: :collection
     get "saveFirstVersion", on: :collection
     get "saveFinalVersion", on: :collection
+    get "loadLastEnsemble", on: :collection
   end
 
   resources :departments

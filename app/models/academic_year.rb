@@ -14,7 +14,7 @@ class AcademicYear < ApplicationRecord
 		to = current_year + 1
 		name = from.to_s + "/" + to.to_s
 
-		new_academic_year = AcademicYear.new(name: name)
+		new_academic_year = AcademicYear.new(name: name, status: 0)
 		
 		if new_academic_year.save
 			return true

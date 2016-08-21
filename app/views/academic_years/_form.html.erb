@@ -11,12 +11,21 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :name %>
-    <%= f.text_field :name %>
-  </div>
+  <div class = "row">
+  <div class="col-md-6">
 
-  <div class="actions">
-    <%= f.submit %>
+  <div class="form-group row">
+    <%= f.label :status, :class => "col-xs-3 col-form-label"%>
+    <div class="col-xs-9">
+      <%= f.number_field :status %>
+    </div>
+  </div>
+    
+  <div class="actions row">
+    <div class="col-xs-3 col-form-label"></div>
+    <div class="col-xs-9">
+      <%= f.submit 'Spasi izmjene', :class => 'btn btn-primary' %> 
+    </div>
+    </div>
   </div>
 <% end %>

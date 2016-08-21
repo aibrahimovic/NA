@@ -8,17 +8,6 @@ class EnsemblesController < ApplicationController
   # GET /ensembles.json
   def index
     @ensembles = Ensemble.all
-
-   respond_to do |format|
-      
-      format.html
-      format.pdf do
-        pdf = ReportPdf.new(@ensembles) 
-        send_data pdf.render, filename: 'NastavniAnsambl.pdf', type: 'application/pdf'
-      end
-    end
-    
-
   end
 
   # GET /ensembles/1
@@ -27,12 +16,15 @@ class EnsemblesController < ApplicationController
   end
 
 
-
   # GET /ensembles/new
   def new
     academic_year_id = AcademicYear.get_current_academic_year
     academic_year = AcademicYear.find(academic_year_id)
     @ensembles = Ensemble.where(academic_year: academic_year_id)
+
+    if @ensembles.nil? || @ensembles == []
+      @last_ensemble = true
+    end
 
     @subjects = Subject.all
     @teachers = Teacher.all
@@ -42,6 +34,9 @@ class EnsemblesController < ApplicationController
 
     @lecturer = SubjectRole.find_by(name: "Nastavnik")
     @status = academic_year.status
+
+
+    
 
   end
 
@@ -126,44 +121,9 @@ class EnsemblesController < ApplicationController
         ensemble_item.save
         status = true
         return render json: {status: 'OK'}
-      end
-
-=begin
-      respond_to do |format|
-        if status == true
-          #format.html { redirect_to ensembles_url, notice: 'Nastavni ansambl za predmet je spašen.' }
-          format.json { render json: 'OK' }
-        else
-          format.html { redirect_to academic_years_url, notice: 'Desila se greška prilikom spašavanja nastavnog ansambla za ovaj predmet.' }
-        end
-      end
-=end
-
-      #current_items.each do |current_item|
-      
-        #if current_item.subject_role_id.to_i == subject_role_id.to_i
-
-          #current_item.teacher_id = teacher_id
-          #current_item.save
-          #return render json: { status: 'Teacher updated.' }
-        
-        #elsif current_item.teacher_id.to_i == teacher_id.to_i
-         # current_item.subject_role_id = subject_role_id
-         # current_item.save
-         # return render json: { status: 'Subject role updated.' }
-        
-       # end
-
-      #end
-
-      #Ensemble.create(subject_id: subject_id, subject_role_id: subject_role_id, teacher_id: teacher_id, academic_year_id: academic_year)
-     # return render json: { status: 'New record saved.' }
-         
-      
-
+      end      
     end 
     
-
   end
 
   def delete_record 
@@ -230,6 +190,15 @@ class EnsemblesController < ApplicationController
       end
     end
 
+  end
+
+  def loadLastEnsemble
+    Ensemble.set_previous_ensemble
+
+    respond_to do |format|
+      format.html { redirect_to new_ensemble_path, notice: 'Podaci su učitani'}
+      format.json { head :no_content }
+    end
   end
 
   def documents

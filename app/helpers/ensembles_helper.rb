@@ -6,4 +6,5 @@ module EnsemblesHelper
 	def document_rendering?
 		@flag
 	end
+
 end

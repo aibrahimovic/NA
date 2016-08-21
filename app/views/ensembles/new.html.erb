@@ -7,6 +7,9 @@
 	<%= button_to 'Spasi finalnu verziju', saveFinalVersion_ensembles_path, class: 'btn btn-primary', :id => 'ensemble_first_version2', :method => :get%>
 <% else %>
 	<%= button_to 'Spasi preliminarnu verziju', saveFirstVersion_ensembles_path, class: 'btn btn-default', :id => 'ensemble_first_version2', :method => :get%>
+		<% if @last_ensemble == true %>
+		<%= button_to 'Učitaj nastavni ansambl od prošle akademske godine', loadLastEnsemble_ensembles_path, class: 'btn btn-default', :id => 'ensemble_first_version2', :method => :get%> 
+	<% end %>
 <% end %>
 
 <br><br>
@@ -40,7 +43,7 @@
 
 				<% row_first = @rows.where(subject_role_id: @lecturer.id).first %>
 				
-				<% if row.id == row_first.id %>
+				<% if row.id == row_first.id && !row_first.id.nil? || !row.id.nil? %>
 				<div class="col-md-5">
 					<select disabled class="select_subject_roles form-control" data-subject="<%=subject.id%>">
 						<option disabled selected value></option>
