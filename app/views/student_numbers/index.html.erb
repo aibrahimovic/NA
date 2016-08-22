@@ -1,9 +1,9 @@
 <br>
 <span id="notice" style="margin-left:0px;"><%= notice %></span>
-<div class="row">
-    <%= button_to 'Projiciraj broj studenata za '+ @academic_year.name + ' ak. godinu', predictStudentNumber_student_numbers_path, class: 'btn btn-primary', :method => :get %>
-    <%= button_to 'Ažuriranje broja upisanih studenata', updateStudentNumber_student_numbers_path, class: 'btn btn-default', :method => :get %>
-</div>
+<br>
+<%= button_to 'Projiciraj broj studenata za '+ @academic_year.name + ' ak. godinu', predictStudentNumber_student_numbers_path, class: 'btn btn-primary', :method => :get %>
+<%= button_to 'Ažuriranje broja upisanih studenata', updateStudentNumber_student_numbers_path, class: 'btn btn-default', :method => :get %>
+
 
 <br><br>
 <table class="table">

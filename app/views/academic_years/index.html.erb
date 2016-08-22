@@ -16,7 +16,7 @@
     <% @academic_years.each do |academic_year| %>
       <tr>
         <td><%= academic_year.name %></td>
-        <td><%= academic_year.status %></td>
+        <td><%= AcademicYear.get_status(academic_year.status) %></td>
         <td><%= link_to 'Uredi', edit_academic_year_path(academic_year) %></td>
         <td><%= link_to 'Obriši', academic_year, method: :delete, data: { confirm: 'Da li ste sigurni? Ako odaberete opciju DA, svi redovi tabele Nastavni ansambl vezani za akademsku godinu će biti također obrisani.' } %>
       </tr>

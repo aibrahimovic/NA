@@ -28,7 +28,19 @@ class StudentNumber < ApplicationRecord
           end
           counter = counter/10
 
-          group_sizes = Constant.group_sizes[:less_exercises]
+          #group_sizes = Constant.group_sizes[:less_exercises]
+          subject_hours = subject.number_of_lectures.to_i + subject.number_of_exercises.to_i + subject.number_of_tutorials.to_i + subject.number_of_special_activities.to_i
+
+          labs = subject.number_of_tutorials + subject.number_of_special_activities
+
+          if labs/subject_hours < 50 && labs/subject_hours > 40
+            group_sizes = Constant.group_sizes[:more_exercises]
+          elsif labs/subject_hours < 40 && labs/subject_hours > 20
+            group_sizes = Constant.group_sizes[:less_exercises]
+          else
+            group_sizes = Constant.group_sizes[:no_exercises]
+          end
+
           group_number = (counter/group_sizes).ceil
           new_record = StudentNumber.create(subject_id: subject.id, predicted_student_number: counter, academic_year_id: academic_year, group_number: group_number)
         end

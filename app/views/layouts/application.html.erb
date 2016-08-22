@@ -47,6 +47,7 @@
   
 	  <div class="sidebar col-md-2">
 	  	<nav>
+      <% if current_user %>
 	  		<%= link_to "Nastavni ansambl", new_ensemble_path, :class => "sidebar_item" %><br>
 	        <%= link_to "Nastavnici",   teachers_path, :class => "sidebar_item" %><br>
 	        <%= link_to "Predmeti",   subjects_path, :class => "sidebar_item" %><br>
@@ -58,6 +59,7 @@
           <%= link_to "Uloge",  roles_path, :class => "sidebar_item" %><br>
           <%= link_to "Privilegije",  role_privileges_path, :class => "sidebar_item" %><br>
           <%= link_to "Akademske godine",  academic_years_path, :class => "sidebar_item" %><br>
+      <% end %>
 	    </nav>
       <br>
       <br>

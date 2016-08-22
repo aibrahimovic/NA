@@ -61,7 +61,7 @@
     <div class="field row">
       <%= f.label :role, 'Uloga u sistemu', :class => "col-xs-3 col-form-label" %>
       <div class="col-xs-9">
-        <%= f.collection_select :role, @roles, :id, :name, {}, { :class => 'span3 controls controls-row form-control'} %>
+        <%= f.collection_select :role, Role.all, :id, :name, {}, { :class => 'span3 controls controls-row form-control'} %>
       </div>
     </div>
 

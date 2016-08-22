@@ -6,6 +6,8 @@ class PrivilegesController < ApplicationController
   # GET /privileges.json
   def index
     @privileges = Privilege.all
+    current_user
+    raise
   end
 
   # GET /privileges/1

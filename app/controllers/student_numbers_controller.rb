@@ -37,7 +37,7 @@ class StudentNumbersController < ApplicationController
 
     respond_to do |format|
       if @student_number.save
-        format.html { redirect_to @student_number, notice: 'Student number was successfully created.' }
+        format.html { redirect_to student_numbers_url, notice: 'Broj studenata je uspješno kreiran.' }
         format.json { render :show, status: :created, location: @student_number }
       else
         format.html { render :new }
@@ -51,7 +51,7 @@ class StudentNumbersController < ApplicationController
   def update
     respond_to do |format|
       if @student_number.update(student_number_params)
-        format.html { redirect_to @student_number, notice: 'Student number was successfully updated.' }
+        format.html { redirect_to student_numbers_url, notice: 'Broj studenata je uspješno izmjenjen.' }
         format.json { render :show, status: :ok, location: @student_number }
       else
         format.html { render :edit }
@@ -65,7 +65,7 @@ class StudentNumbersController < ApplicationController
   def destroy
     @student_number.destroy
     respond_to do |format|
-      format.html { redirect_to student_numbers_url, notice: 'Student number was successfully destroyed.' }
+      format.html { redirect_to student_numbers_url, notice: 'Broj studenata je uspješno obrisan.' }
       format.json { head :no_content }
     end
   end

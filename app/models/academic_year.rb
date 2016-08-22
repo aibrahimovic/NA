@@ -37,4 +37,14 @@ class AcademicYear < ApplicationRecord
 =end
 	end
 
+	def self.get_status(status)
+		if status == 0
+			return "Nema nastavnog ansambla"
+		elsif status == 1
+			return "Preliminarna verzija"
+		else
+			return "Finalna verzija"
+		end
+	end
+
 end

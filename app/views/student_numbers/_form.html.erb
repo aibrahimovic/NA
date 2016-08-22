@@ -11,27 +11,25 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :subject_id %>
-    <%= f.number_field :subject_id %>
+
+  <div class = "row">
+  <div class="col-md-6">
+
+
+  <div class="form-group row">
+    <%= f.label :broj_studenata, :class => "col-xs-3 col-form-label" %>
+    <div class="col-xs-9">
+      <%= f.number_field :student_number %>
+    </div>
   </div>
 
-  <div class="field">
-    <%= f.label :predicted_student_number %>
-    <%= f.number_field :predicted_student_number %>
+  <div class="actions row">
+    <div class="col-xs-3 col-form-label"></div>
+    <div class="col-xs-9">
+      <%= f.submit 'Spasi izmjene', :class => 'btn btn-primary' %> <br>
+      <%= link_to 'Nazad', student_numbers_path %>
+    </div>
   </div>
 
-  <div class="field">
-    <%= f.label :student_number %>
-    <%= f.number_field :student_number %>
-  </div>
 
-  <div class="field">
-    <%= f.label :academic_year %>
-    <%= f.text_field :academic_year %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit %>
-  </div>
 <% end %>

@@ -13,7 +13,7 @@ class Constant
   end
 
   def self.group_sizes
-    {:more_exercises => 15, :less_exercises => 20}
+    {:more_exercises => 15, :less_exercises => 20, :no_exercises => 25}
   end
 
   def self.study_program

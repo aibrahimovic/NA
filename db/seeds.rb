@@ -6,9 +6,17 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-#User.create("first_name"=>"Azra", "last_name"=>"Ibrahimović", "email"=>"aibrahimov3@etf.unsa.ba", "username" => "admin", "password_digest"=>"admin")
+#Users
+=begin
+User.create(first_name: "Azra", last_name: "Ibrahimović", username: "admin", password: "admin", password_confirmation: "admin", email: "aibrahimov3@etf.unsa.ba")
+User.create(first_name: "1", last_name: "1", username: "RI", password: "ri", password_confirmation: "ri",email: "ri@etf.unsa.ba")
+User.create(first_name: "2", last_name: "2", username: "EE", password: "ee", password_confirmation: "ee",email: "ee@etf.unsa.ba")
+User.create(first_name: "3", last_name: "3", username: "TK", password: "tk", password_confirmation: "tk",email: "tk@etf.unsa.ba")
+User.create(first_name: "4", last_name: "4", username: "AE", password: "ae", password_confirmation: "ae",email: "aie@etf.unsa.ba")
+User.create(first_name: "5", last_name: "5", username: "Personal", password: "etf", password_confirmation: "etf",email: "personal@etf.unsa.ba")
+User.create(first_name: "6", last_name: "6", username: "uprava", password: "etf", password_confirmation: "etf",email: "uprava@etf.unsa.ba")
+=end
 
-#User.create("first_name"=>"Azra", "last_name"=>"Ibrahimović", "email"=>"aibrahimov3@etf.unsa.ba", "username" => "admin2", "password"=>"admin", "password_confirmation" => "admin")
 =begin
 Department.create(name:"RI")
 Department.create(name:"EE")
@@ -59,7 +67,7 @@ for i in 1...10
 		end
 	end
 end
-end
+=end
 
 =begin roles, privileges and role_privileges
 
